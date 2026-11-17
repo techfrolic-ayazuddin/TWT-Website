@@ -1,0 +1,659 @@
+/* ===========================================================================
+   The Working Tribe — Design Tokens
+   ---------------------------------------------------------------------------
+   Generated from the Figma file `The Working Tribe Website`
+   (fvvCEIlOGqFy33Tdw3eUSI) — 299 variables / 6 collections, 42 text styles,
+   9 effect styles, 4 grid styles, 4 paint styles.
+
+   Extracted 2026-11-11 via the figma-console MCP bridge, READ-ONLY.
+   Re-run `design/extract-tokens.figma.js` to regenerate the source data.
+   Mapping rules and known mismatches: `design/TOKENS.md`.
+
+   ARCHITECTURE
+   - Primitives live under `:root` only. They deliberately do NOT generate
+     Tailwind utilities, so components cannot reach past the semantic layer.
+   - Semantic + segment colours sit in `@theme`, so they are emitted to `:root`
+     as `--color-*` AND generate utilities. They keep their `var(--primitive)`
+     reference, which is what makes each one traceable back to Figma.
+   - Tailwind's default colour / radius / text / shadow / breakpoint scales are
+     cleared, so every utility in this project traces back to Figma.
+
+   DO NOT hand-edit values here. Change the design in Figma, re-extract, and
+   regenerate. See CLAUDE.md §1 and §3.
+   =========================================================================== */
+
+/* ---------------------------------------------------------------------------
+   1. PRIMITIVES — Figma collection `Primitives` (56 variables)
+   `:root` only: no utilities are generated from these on purpose.
+   --------------------------------------------------------------------------- */
+:root {
+  /* Brand — violet. OFFICIAL, Brand Guidelines v1.0 */
+  --violet-100: #a18efd; /* violet/100 */
+  --violet-300: #8168fc; /* violet/300 */
+  --violet-500: #6242fb; /* violet/500 — core. RGB 98 66 251 */
+  --violet-700: #4a32bc; /* violet/700 */
+  --violet-900: #31217e; /* violet/900 */
+
+  /* Brand — pink. OFFICIAL */
+  --pink-100: #fd9ad5; /* pink/100 */
+  --pink-300: #fc67c1; /* pink/300 */
+  --pink-500: #fa0297; /* pink/500 — core. RGB 250 2 151 */
+  --pink-700: #bb0271; /* pink/700 */
+  --pink-900: #7d014c; /* pink/900 */
+
+  /* Brand — orange. OFFICIAL */
+  --orange-100: #fec1b0; /* orange/100 */
+  --orange-300: #fd8361; /* orange/300 */
+  --orange-500: #fd643a; /* orange/500 — core. RGB 253 100 58 */
+  --orange-700: #be4b2c; /* orange/700 */
+  --orange-900: #7f321d; /* orange/900 */
+
+  /* Brand — yellow. OFFICIAL */
+  --yellow-100: #ffd880; /* yellow/100 */
+  --yellow-300: #ffcb56; /* yellow/300 */
+  --yellow-500: #ffbe2c; /* yellow/500 — core. RGB 255 190 44 */
+  --yellow-700: #bf8f21; /* yellow/700 */
+  --yellow-900: #805f16; /* yellow/900 */
+
+  /* Brand alphas — permitted by "use different opacity of all shades" */
+  --violet-a04: #6242fb0a; /* violet/a04 */
+  --violet-a08: #6242fb14; /* violet/a08 */
+  --violet-a12: #6242fb1f; /* violet/a12 */
+  --violet-a16: #6242fb29; /* violet/a16 */
+  --violet-a24: #6242fb3d; /* violet/a24 */
+  --violet-a40: #6242fb66; /* violet/a40 */
+  --pink-a08: #fa029714; /* pink/a08 */
+  --pink-a16: #fa029729; /* pink/a16 */
+  --orange-a08: #fd643a14; /* orange/a08 */
+  --orange-a16: #fd643a29; /* orange/a16 */
+  --yellow-a08: #ffbe2c14; /* yellow/a08 */
+  --yellow-a16: #ffbe2c29; /* yellow/a16 */
+  --yellow-a24: #ffbe2c3d; /* yellow/a24 */
+
+  /* Logo artwork navy — sampled from the official vector logo */
+  --navy-900: #070052; /* navy/900 */
+  --navy-800: #170d49; /* navy/800 */
+
+  /* Neutrals — SUPPORTING design choice, not official brand colours */
+  --neutral-0: #ffffff; /* neutral/0 */
+  --neutral-25: #fbfaff; /* neutral/25 */
+  --neutral-50: #f5f4fa; /* neutral/50 */
+  --neutral-100: #edebf5; /* neutral/100 */
+  --neutral-200: #dedbea; /* neutral/200 */
+  --neutral-300: #c5c1d6; /* neutral/300 */
+  --neutral-400: #9a95b0; /* neutral/400 */
+  --neutral-500: #736e8a; /* neutral/500 */
+  --neutral-600: #57536b; /* neutral/600 */
+  --neutral-700: #3f3b52; /* neutral/700 */
+  --neutral-800: #29263a; /* neutral/800 */
+  --neutral-900: #161424; /* neutral/900 */
+  --white-a12: #ffffff1f; /* white/a12 */
+  --white-a24: #ffffff3d; /* white/a24 */
+  --white-a72: #ffffffb8; /* white/a72 */
+
+  /* Functional — form validation & system feedback only */
+  --green-50: #e8f6ef; /* green/50 */
+  --green-600: #12805c; /* green/600 */
+  --green-700: #0e6849; /* green/700 */
+  --red-50: #fdecee; /* red/50 */
+  --red-600: #d42a3c; /* red/600 */
+  --red-700: #a81f2e; /* red/700 */
+}
+
+/* ---------------------------------------------------------------------------
+   2. SPACING & LAYOUT — Figma `Spacing & Shape` + `Layout`
+   `:root` only. See design/TOKENS.md for the Tailwind utility equivalents:
+   Tailwind's default 0.25rem spacing scale already reproduces every value
+   (space/16 === `p-4`), so it is left intact rather than overridden.
+   --------------------------------------------------------------------------- */
+:root {
+  /* space/* — 4/8-point scale */
+  --space-0: 0px;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+  --space-80: 80px;
+  --space-96: 96px;
+  --space-120: 120px;
+  --space-160: 160px;
+
+  /* stroke/* — border weights */
+  --stroke-hairline: 1px;
+  --stroke-default: 1.5px;
+  --stroke-strong: 2px;
+
+  /* size/icon/* */
+  --size-icon-sm: 16px;
+  --size-icon-md: 20px;
+  --size-icon-lg: 24px;
+  --size-icon-xl: 32px;
+  --size-icon-2xl: 48px;
+
+  /* size/control/* — 48px+ meets touch-target guidance */
+  --size-control-sm: 40px;
+  --size-control-md: 48px;
+  --size-control-lg: 56px;
+
+  /* Figma artboard widths. These are DESIGN CANVAS sizes, not CSS
+     breakpoints — see design/TOKENS.md § "Breakpoints". */
+  --canvas-desktop: 1440px; /* breakpoint/desktop */
+  --canvas-tablet: 768px; /* breakpoint/tablet */
+  --canvas-mobile: 375px; /* breakpoint/mobile */
+
+  /* margin/* — outer page margin per canvas */
+  --margin-desktop: 80px;
+  --margin-tablet: 32px;
+  --margin-mobile: 16px;
+
+  /* gutter/* — grid gutter per canvas */
+  --gutter-desktop: 24px;
+  --gutter-tablet: 20px;
+  --gutter-mobile: 16px;
+
+  /* columns/* — grid column count per canvas */
+  --columns-desktop: 12;
+  --columns-tablet: 8;
+  --columns-mobile: 4;
+
+  /* section-y/* — vertical section rhythm */
+  --section-y-desktop: 120px;
+  --section-y-tablet: 96px;
+  --section-y-mobile: 64px;
+  --section-y-compact-desktop: 80px;
+  --section-y-compact-tablet: 64px;
+  --section-y-compact-mobile: 48px;
+
+  /* stack/* — heading to content */
+  --stack-heading-to-content: 64px;
+  --stack-heading-to-content-mobile: 40px;
+
+  /* Responsive section rhythm, resolved by media query below. */
+  --section-y: var(--section-y-mobile);
+  --section-y-compact: var(--section-y-compact-mobile);
+  --page-margin: var(--margin-mobile);
+  --grid-gutter: var(--gutter-mobile);
+  --grid-columns: var(--columns-mobile);
+  --stack-heading: var(--stack-heading-to-content-mobile);
+}
+
+@media (width >= 768px) {
+  :root {
+    --section-y: var(--section-y-tablet);
+    --section-y-compact: var(--section-y-compact-tablet);
+    --page-margin: var(--margin-tablet);
+    --grid-gutter: var(--gutter-tablet);
+    --grid-columns: var(--columns-tablet);
+    --stack-heading: var(--stack-heading-to-content);
+  }
+}
+
+@media (width >= 1280px) {
+  :root {
+    --section-y: var(--section-y-desktop);
+    --section-y-compact: var(--section-y-compact-desktop);
+    --page-margin: var(--margin-desktop);
+    --grid-gutter: var(--gutter-desktop);
+    --grid-columns: var(--columns-desktop);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   3. GRADIENTS & OVERLAYS — Figma paint styles (4)
+   Not a Tailwind namespace; use via `bg-(image:--gradient-violet-deep)`.
+   --------------------------------------------------------------------------- */
+:root {
+  /* Gradient/Violet · App icon */
+  --gradient-violet-app-icon: linear-gradient(135deg, #a18efd 0%, #6242fb 100%);
+  /* Gradient/Violet deep */
+  --gradient-violet-deep: linear-gradient(135deg, #6242fb 0%, #31217e 100%);
+  /* Overlay/Violet wash · Photo duotone — solid #6242FB @ 72% */
+  --overlay-violet-wash: #6242fbb8;
+  /* Overlay/Navy scrim · Text on photo */
+  --overlay-navy-scrim: linear-gradient(180deg, #07005200 0%, #070052c7 100%);
+}
+
+/* ===========================================================================
+   4. TAILWIND THEME
+   =========================================================================== */
+@theme static {
+  /* Clear Tailwind's stock scales so every utility traces back to Figma. */
+  --color-*: initial;
+  --font-*: initial;
+  --text-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --breakpoint-*: initial;
+  --container-*: initial;
+
+  /* --- Keywords Tailwind still needs ------------------------------------ */
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-inherit: inherit;
+
+  /* --- Font families — Figma `font/family/brand` ------------------------- */
+  /*
+   * `--font-brand` is set on <html> by the root layout from
+   * `brandFontFamily` (src/lib/fonts.ts) and is ALREADY the complete stack:
+   * Sofia Sans Latin, Sofia Sans Latin Extended, Next's metric-matched
+   * fallback, then `sans-serif`. No `system-ui` (Segoe UI on Windows).
+   * Keep this as a bare reference so the chain stays single and legible.
+   */
+  --font-sans: var(--font-brand);
+
+  /* --- Font weights — Figma `font/weight/*` ----------------------------- */
+  --font-weight-light: 300; /* font/weight/light  → "Light"   */
+  --font-weight-regular: 400; /* font/weight/regular → "Regular" */
+  --font-weight-bold: 700; /* font/weight/bold    → "Bold"    */
+
+  /* --- Breakpoints ------------------------------------------------------
+     Derived from the TEXT STYLE thresholds, which are authoritative for
+     responsive typography: Desktop ≥1280 · Tablet 768–1279 · Mobile <768.
+     The Figma `breakpoint/*` variables (1440/768/375) are artboard widths
+     and are exposed above as --canvas-*. See design/TOKENS.md.           */
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1280px;
+
+  /* --- Containers — Figma `container/*` --------------------------------- */
+  --container-desktop: 1280px;
+  --container-tablet: 704px;
+  --container-mobile: 343px;
+  --container-narrow: 880px;
+
+  /* --- Radius — Figma `radius/*` ---------------------------------------- */
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-full: 999px; /* pill — echoes the TWT symbol's stroke terminals */
+
+  /* --- Shadows — Figma effect styles ------------------------------------ */
+  --shadow-elevation-1: 0 1px 2px 0 #0700520f, 0 4px 12px -2px #0700520f;
+  --shadow-elevation-2: 0 2px 4px -1px #07005214, 0 16px 32px -8px #07005224;
+  --shadow-elevation-3: 0 4px 8px -2px #07005214, 0 24px 48px -12px #0700522e;
+  --shadow-elevation-4: 0 32px 64px -16px #0700523d;
+  --shadow-brand-glow: 0 12px 28px -8px #6242fb73;
+  --shadow-focus-ring: 0 0 0 4px #6242fb47;
+  --shadow-focus-ring-error: 0 0 0 4px #d42a3c2e;
+  --shadow-focus-ring-on-dark: 0 0 0 4px #ffffff66;
+
+  /* --- Backdrop blur — Figma `Blur/Header glass` ------------------------ */
+  --blur-header-glass: 24px;
+
+  /* =======================================================================
+     TYPOGRAPHY — all 42 Figma text styles.
+     Each generates a single utility that sets size, line-height,
+     letter-spacing and weight together, e.g. `text-desktop-heading-h1`.
+     Figma tracking is a percentage; converted to `em` (−2% → −0.02em).
+     ======================================================================= */
+
+  /* --- Desktop (≥1280) -------------------------------------------------- */
+  --text-desktop-display-hero: 4.5rem; /* 72px */
+  --text-desktop-display-hero--line-height: 5rem; /* 80px */
+  --text-desktop-display-hero--letter-spacing: -0.02em;
+  --text-desktop-display-hero--font-weight: 700;
+
+  --text-desktop-heading-h1: 3.5rem; /* 56px */
+  --text-desktop-heading-h1--line-height: 4rem; /* 64px */
+  --text-desktop-heading-h1--letter-spacing: -0.015em;
+  --text-desktop-heading-h1--font-weight: 700;
+
+  --text-desktop-heading-h2: 2.75rem; /* 44px */
+  --text-desktop-heading-h2--line-height: 3.25rem; /* 52px */
+  --text-desktop-heading-h2--letter-spacing: -0.01em;
+  --text-desktop-heading-h2--font-weight: 700;
+
+  --text-desktop-heading-h3: 2rem; /* 32px */
+  --text-desktop-heading-h3--line-height: 2.5rem; /* 40px */
+  --text-desktop-heading-h3--letter-spacing: -0.005em;
+  --text-desktop-heading-h3--font-weight: 700;
+
+  --text-desktop-heading-h4: 1.5rem; /* 24px */
+  --text-desktop-heading-h4--line-height: 2rem; /* 32px */
+  --text-desktop-heading-h4--letter-spacing: 0em;
+  --text-desktop-heading-h4--font-weight: 700;
+
+  --text-desktop-body-large: 1.25rem; /* 20px */
+  --text-desktop-body-large--line-height: 2rem; /* 32px */
+  --text-desktop-body-large--letter-spacing: 0em;
+  --text-desktop-body-large--font-weight: 300;
+
+  --text-desktop-body-large-strong: 1.25rem; /* 20px */
+  --text-desktop-body-large-strong--line-height: 2rem; /* 32px */
+  --text-desktop-body-large-strong--letter-spacing: 0em;
+  --text-desktop-body-large-strong--font-weight: 700;
+
+  --text-desktop-body-regular: 1.125rem; /* 18px */
+  --text-desktop-body-regular--line-height: 1.75rem; /* 28px */
+  --text-desktop-body-regular--letter-spacing: 0em;
+  --text-desktop-body-regular--font-weight: 400;
+
+  --text-desktop-body-small: 0.9375rem; /* 15px */
+  --text-desktop-body-small--line-height: 1.5rem; /* 24px */
+  --text-desktop-body-small--letter-spacing: 0.005em;
+  --text-desktop-body-small--font-weight: 400;
+
+  --text-desktop-quote-large: 1.875rem; /* 30px */
+  --text-desktop-quote-large--line-height: 2.625rem; /* 42px */
+  --text-desktop-quote-large--letter-spacing: -0.005em;
+  --text-desktop-quote-large--font-weight: 300;
+
+  --text-desktop-stat-number: 3.5rem; /* 56px */
+  --text-desktop-stat-number--line-height: 3.75rem; /* 60px */
+  --text-desktop-stat-number--letter-spacing: -0.02em;
+  --text-desktop-stat-number--font-weight: 700;
+
+  /* --- Tablet (768–1279) ------------------------------------------------ */
+  --text-tablet-display-hero: 3.5rem; /* 56px */
+  --text-tablet-display-hero--line-height: 4rem; /* 64px */
+  --text-tablet-display-hero--letter-spacing: -0.02em;
+  --text-tablet-display-hero--font-weight: 700;
+
+  --text-tablet-heading-h1: 3rem; /* 48px */
+  --text-tablet-heading-h1--line-height: 3.5rem; /* 56px */
+  --text-tablet-heading-h1--letter-spacing: -0.015em;
+  --text-tablet-heading-h1--font-weight: 700;
+
+  --text-tablet-heading-h2: 2.375rem; /* 38px */
+  --text-tablet-heading-h2--line-height: 2.875rem; /* 46px */
+  --text-tablet-heading-h2--letter-spacing: -0.01em;
+  --text-tablet-heading-h2--font-weight: 700;
+
+  --text-tablet-heading-h3: 1.75rem; /* 28px */
+  --text-tablet-heading-h3--line-height: 2.25rem; /* 36px */
+  --text-tablet-heading-h3--letter-spacing: -0.005em;
+  --text-tablet-heading-h3--font-weight: 700;
+
+  --text-tablet-heading-h4: 1.375rem; /* 22px */
+  --text-tablet-heading-h4--line-height: 1.875rem; /* 30px */
+  --text-tablet-heading-h4--letter-spacing: 0em;
+  --text-tablet-heading-h4--font-weight: 700;
+
+  --text-tablet-body-large: 1.1875rem; /* 19px */
+  --text-tablet-body-large--line-height: 1.875rem; /* 30px */
+  --text-tablet-body-large--letter-spacing: 0em;
+  --text-tablet-body-large--font-weight: 300;
+
+  --text-tablet-body-large-strong: 1.1875rem; /* 19px */
+  --text-tablet-body-large-strong--line-height: 1.875rem; /* 30px */
+  --text-tablet-body-large-strong--letter-spacing: 0em;
+  --text-tablet-body-large-strong--font-weight: 700;
+
+  --text-tablet-body-regular: 1.0625rem; /* 17px */
+  --text-tablet-body-regular--line-height: 1.75rem; /* 28px */
+  --text-tablet-body-regular--letter-spacing: 0em;
+  --text-tablet-body-regular--font-weight: 400;
+
+  --text-tablet-body-small: 0.9375rem; /* 15px */
+  --text-tablet-body-small--line-height: 1.5rem; /* 24px */
+  --text-tablet-body-small--letter-spacing: 0.005em;
+  --text-tablet-body-small--font-weight: 400;
+
+  --text-tablet-quote-large: 1.625rem; /* 26px */
+  --text-tablet-quote-large--line-height: 2.375rem; /* 38px */
+  --text-tablet-quote-large--letter-spacing: -0.005em;
+  --text-tablet-quote-large--font-weight: 300;
+
+  --text-tablet-stat-number: 3rem; /* 48px */
+  --text-tablet-stat-number--line-height: 3.25rem; /* 52px */
+  --text-tablet-stat-number--letter-spacing: -0.02em;
+  --text-tablet-stat-number--font-weight: 700;
+
+  /* --- Mobile (<768) ---------------------------------------------------- */
+  --text-mobile-display-hero: 2.75rem; /* 44px */
+  --text-mobile-display-hero--line-height: 3.25rem; /* 52px */
+  --text-mobile-display-hero--letter-spacing: -0.02em;
+  --text-mobile-display-hero--font-weight: 700;
+
+  --text-mobile-heading-h1: 2.25rem; /* 36px */
+  --text-mobile-heading-h1--line-height: 2.75rem; /* 44px */
+  --text-mobile-heading-h1--letter-spacing: -0.015em;
+  --text-mobile-heading-h1--font-weight: 700;
+
+  --text-mobile-heading-h2: 2rem; /* 32px */
+  --text-mobile-heading-h2--line-height: 2.5rem; /* 40px */
+  --text-mobile-heading-h2--letter-spacing: -0.01em;
+  --text-mobile-heading-h2--font-weight: 700;
+
+  --text-mobile-heading-h3: 1.5rem; /* 24px */
+  --text-mobile-heading-h3--line-height: 2rem; /* 32px */
+  --text-mobile-heading-h3--letter-spacing: -0.005em;
+  --text-mobile-heading-h3--font-weight: 700;
+
+  --text-mobile-heading-h4: 1.25rem; /* 20px */
+  --text-mobile-heading-h4--line-height: 1.75rem; /* 28px */
+  --text-mobile-heading-h4--letter-spacing: 0em;
+  --text-mobile-heading-h4--font-weight: 700;
+
+  --text-mobile-body-large: 1.125rem; /* 18px */
+  --text-mobile-body-large--line-height: 1.75rem; /* 28px */
+  --text-mobile-body-large--letter-spacing: 0em;
+  --text-mobile-body-large--font-weight: 300;
+
+  --text-mobile-body-large-strong: 1.125rem; /* 18px */
+  --text-mobile-body-large-strong--line-height: 1.75rem; /* 28px */
+  --text-mobile-body-large-strong--letter-spacing: 0em;
+  --text-mobile-body-large-strong--font-weight: 700;
+
+  --text-mobile-body-regular: 1rem; /* 16px */
+  --text-mobile-body-regular--line-height: 1.625rem; /* 26px */
+  --text-mobile-body-regular--letter-spacing: 0em;
+  --text-mobile-body-regular--font-weight: 400;
+
+  --text-mobile-body-small: 0.875rem; /* 14px */
+  --text-mobile-body-small--line-height: 1.375rem; /* 22px */
+  --text-mobile-body-small--letter-spacing: 0.005em;
+  --text-mobile-body-small--font-weight: 400;
+
+  --text-mobile-quote-large: 1.375rem; /* 22px */
+  --text-mobile-quote-large--line-height: 2rem; /* 32px */
+  --text-mobile-quote-large--letter-spacing: -0.005em;
+  --text-mobile-quote-large--font-weight: 300;
+
+  --text-mobile-stat-number: 2.5rem; /* 40px */
+  --text-mobile-stat-number--line-height: 2.75rem; /* 44px */
+  --text-mobile-stat-number--letter-spacing: -0.02em;
+  --text-mobile-stat-number--font-weight: 700;
+
+  /* --- UI (all breakpoints) --------------------------------------------- */
+  --text-ui-caption: 0.8125rem; /* 13px */
+  --text-ui-caption--line-height: 1.125rem; /* 18px */
+  --text-ui-caption--letter-spacing: 0.01em;
+  --text-ui-caption--font-weight: 400;
+
+  /* NOTE: UI/Overline is UPPERCASE in Figma. Tailwind's --text-* namespace
+     cannot carry text-transform — pair this with `uppercase`, or use the
+     `.text-ui-overline` component class in globals.css. */
+  --text-ui-overline: 0.8125rem; /* 13px */
+  --text-ui-overline--line-height: 1rem; /* 16px */
+  --text-ui-overline--letter-spacing: 0.12em;
+  --text-ui-overline--font-weight: 700;
+
+  --text-ui-label-large: 1rem; /* 16px */
+  --text-ui-label-large--line-height: 1.5rem; /* 24px */
+  --text-ui-label-large--letter-spacing: 0.005em;
+  --text-ui-label-large--font-weight: 700;
+
+  --text-ui-label-regular: 0.875rem; /* 14px */
+  --text-ui-label-regular--line-height: 1.25rem; /* 20px */
+  --text-ui-label-regular--letter-spacing: 0.01em;
+  --text-ui-label-regular--font-weight: 700;
+
+  --text-ui-button-large: 1.125rem; /* 18px */
+  --text-ui-button-large--line-height: 1.5rem; /* 24px */
+  --text-ui-button-large--letter-spacing: 0.01em;
+  --text-ui-button-large--font-weight: 700;
+
+  --text-ui-button-medium: 1rem; /* 16px */
+  --text-ui-button-medium--line-height: 1.25rem; /* 20px */
+  --text-ui-button-medium--letter-spacing: 0.01em;
+  --text-ui-button-medium--font-weight: 700;
+
+  --text-ui-button-small: 0.875rem; /* 14px */
+  --text-ui-button-small--line-height: 1.125rem; /* 18px */
+  --text-ui-button-small--letter-spacing: 0.015em;
+  --text-ui-button-small--font-weight: 700;
+
+  --text-ui-navigation-link: 1.0625rem; /* 17px */
+  --text-ui-navigation-link--line-height: 1.5rem; /* 24px */
+  --text-ui-navigation-link--letter-spacing: 0.01em;
+  --text-ui-navigation-link--font-weight: 400;
+
+  --text-ui-navigation-link-active: 1.0625rem; /* 17px */
+  --text-ui-navigation-link-active--line-height: 1.5rem; /* 24px */
+  --text-ui-navigation-link-active--letter-spacing: 0.01em;
+  --text-ui-navigation-link-active--font-weight: 700;
+}
+
+/* ---------------------------------------------------------------------------
+   5. SEMANTIC COLOURS — Figma collections `Color` (65) + `Segment` (36)
+   Plain `@theme` (not `inline`) so the custom properties are ALSO emitted to
+   `:root` and remain readable at runtime via var() — inline styles and plain
+   CSS rules need that. Utilities still resolve through to the primitive.
+   Token path mirrors Figma exactly: `a/b/c` → `--color-a-b-c`.
+   --------------------------------------------------------------------------- */
+@theme static {
+  /* --- background/* ----------------------------------------------------- */
+  --color-background-page: var(--neutral-0);
+  --color-background-subtle: var(--neutral-25);
+  --color-background-muted: var(--neutral-50);
+  --color-background-brand: var(--violet-500);
+  --color-background-brand-soft: var(--violet-a08);
+  --color-background-brand-strong: var(--violet-900);
+  --color-background-inverse: var(--navy-800);
+  --color-background-inverse-strong: var(--navy-900);
+
+  /* --- surface/* -------------------------------------------------------- */
+  --color-surface-default: var(--neutral-0);
+  --color-surface-sunken: var(--neutral-50);
+  --color-surface-inverse: var(--navy-800);
+
+  /* --- primary/* -------------------------------------------------------- */
+  --color-primary-default: var(--violet-500);
+  --color-primary-hover: var(--violet-700);
+  --color-primary-pressed: var(--violet-900);
+  --color-primary-soft: var(--violet-a08);
+  --color-primary-soft-hover: var(--violet-a16);
+  --color-primary-soft-pressed: var(--violet-a24);
+
+  /* --- secondary/* ------------------------------------------------------ */
+  --color-secondary-default: var(--pink-500);
+  --color-secondary-strong: var(--pink-700);
+  --color-secondary-soft: var(--pink-a08);
+
+  /* --- accent/* --------------------------------------------------------- */
+  --color-accent-orange: var(--orange-500);
+  --color-accent-orange-strong: var(--orange-700);
+  --color-accent-orange-soft: var(--orange-a08);
+  --color-accent-yellow: var(--yellow-500);
+  --color-accent-yellow-soft: var(--yellow-a16);
+
+  /* --- inverse/* -------------------------------------------------------- */
+  --color-inverse-default: var(--neutral-0);
+  --color-inverse-hover: var(--neutral-50);
+  --color-inverse-pressed: var(--neutral-100);
+  --color-inverse-ghost-hover: var(--white-a12);
+
+  /* --- disabled/* ------------------------------------------------------- */
+  --color-disabled-background: var(--neutral-100);
+
+  /* --- feedback/* ------------------------------------------------------- */
+  --color-feedback-error-soft: var(--red-50);
+  --color-feedback-success-soft: var(--green-50);
+  --color-feedback-warning-soft: var(--yellow-a16);
+  --color-feedback-info-soft: var(--violet-a08);
+
+  /* --- text/* ----------------------------------------------------------- */
+  --color-text-heading: var(--navy-900);
+  --color-text-body: var(--neutral-600);
+  --color-text-muted: var(--neutral-500);
+  --color-text-disabled: var(--neutral-400);
+  --color-text-inverse: var(--neutral-0);
+  --color-text-inverse-muted: var(--white-a72);
+  --color-text-brand: var(--violet-500);
+  --color-text-brand-strong: var(--violet-700);
+  --color-text-secondary: var(--pink-700);
+  --color-text-on-primary: var(--neutral-0);
+  --color-text-on-yellow: var(--navy-900);
+  --color-text-error: var(--red-600);
+  --color-text-success: var(--green-700);
+  --color-text-warning: var(--yellow-900);
+
+  /* --- icon/* ----------------------------------------------------------- */
+  --color-icon-default: var(--navy-900);
+  --color-icon-muted: var(--neutral-500);
+  --color-icon-brand: var(--violet-500);
+  --color-icon-inverse: var(--neutral-0);
+  --color-icon-disabled: var(--neutral-400);
+  --color-icon-error: var(--red-600);
+  --color-icon-success: var(--green-600);
+
+  /* --- border/* --------------------------------------------------------- */
+  --color-border-default: var(--neutral-200);
+  --color-border-strong: var(--neutral-300);
+  --color-border-subtle: var(--neutral-100);
+  --color-border-brand: var(--violet-500);
+  --color-border-brand-soft: var(--violet-100);
+  --color-border-focus: var(--violet-500);
+  --color-border-error: var(--red-600);
+  --color-border-success: var(--green-600);
+  --color-border-inverse: var(--white-a24);
+  --color-border-disabled: var(--neutral-200);
+
+  /* --- segment/* — one hue per service pillar -------------------------- */
+  --color-segment-violet-solid: var(--violet-500);
+  --color-segment-pink-solid: var(--pink-700);
+  --color-segment-orange-solid: var(--orange-700);
+  --color-segment-yellow-solid: var(--yellow-500);
+
+  --color-segment-violet-solid-hover: var(--violet-700);
+  --color-segment-pink-solid-hover: var(--pink-900);
+  --color-segment-orange-solid-hover: var(--orange-900);
+  --color-segment-yellow-solid-hover: var(--yellow-300);
+
+  --color-segment-violet-solid-pressed: var(--violet-900);
+  --color-segment-pink-solid-pressed: var(--pink-900);
+  --color-segment-orange-solid-pressed: var(--orange-900);
+  --color-segment-yellow-solid-pressed: var(--yellow-700);
+
+  --color-segment-violet-on-solid: var(--neutral-0);
+  --color-segment-pink-on-solid: var(--neutral-0);
+  --color-segment-orange-on-solid: var(--neutral-0);
+  --color-segment-yellow-on-solid: var(--navy-900);
+
+  --color-segment-violet-accent: var(--violet-500);
+  --color-segment-pink-accent: var(--pink-500);
+  --color-segment-orange-accent: var(--orange-500);
+  --color-segment-yellow-accent: var(--yellow-500);
+
+  --color-segment-violet-soft: var(--violet-a08);
+  --color-segment-pink-soft: var(--pink-a08);
+  --color-segment-orange-soft: var(--orange-a08);
+  --color-segment-yellow-soft: var(--yellow-a16);
+
+  --color-segment-violet-subtle: var(--violet-a16);
+  --color-segment-pink-subtle: var(--pink-a16);
+  --color-segment-orange-subtle: var(--orange-a16);
+  --color-segment-yellow-subtle: var(--yellow-a24);
+
+  --color-segment-violet-border: var(--violet-100);
+  --color-segment-pink-border: var(--pink-100);
+  --color-segment-orange-border: var(--orange-100);
+  --color-segment-yellow-border: var(--yellow-100);
+
+  --color-segment-violet-text: var(--violet-700);
+  --color-segment-pink-text: var(--pink-700);
+  --color-segment-orange-text: var(--orange-700);
+  --color-segment-yellow-text: var(--yellow-900);
+}
