@@ -76,13 +76,19 @@ export const servicesHero = {
   /** Figma `Approach chip` — the three-step approach, drawn over the image. */
   approach: ["Advise", "Build capability", "Adopt & sustain"],
   /**
-   * Stock photograph placed in the Figma frame (`87:1494`), exported
-   * unmodified. Its credit record is still owed in `credits.ts`
-   * (CLAUDE.md §6.4).
+   * The photograph placed in the Figma frame (`87:1494`, hash `9fe45a3bc7`,
+   * 1205 × 808), exported unmodified. Replaced in the 2026-11-18 Figma image
+   * sync. Figma sets the fill to `CROP` with imageTransform
+   * [[1, 0, 0.0004], [0, 0.466, 0.1732]] — a full-width, 400 px-tall window
+   * starting 17.32% down, i.e. `object-position` y = 0.1732 / (1 − 0.466) =
+   * 32.4% (verified against Figma's render: MAD 9.0/255 at the plateau,
+   * versus 63.4 for a centred cover). No attribution is carried in Figma —
+   * credit record still owed (CLAUDE.md §6.4).
    */
   image: {
-    src: "/images/services-hero.jpg",
-    alt: "A team around a boardroom table with open laptops, listening to a colleague",
+    src: "/images/services-hero-presentation.jpg",
+    alt: "A presenter in a boardroom speaking to a team seated around a table, beside a screen of charts",
+    position: "50% 32.4%",
   },
 };
 
@@ -186,12 +192,15 @@ export const trainingService = {
     status: "live",
   } as HomeLink,
   /**
-   * Stock photograph placed in the Figma frame (`85:1077`), exported
-   * unmodified. Credit record still owed (CLAUDE.md §6.4).
+   * The photograph placed in the Figma frame (`85:1077`, hash `787927efd3`,
+   * 803 × 805), exported unmodified. Replaced in the 2026-11-18 Figma image
+   * sync; a plain `FILL`, so a centred `object-cover`. The same file is used
+   * by the Why TWT hero arch and by the "Training" related-service card on
+   * the other three detail pages. Credit record still owed (CLAUDE.md §6.4).
    */
   image: {
-    src: "/images/services-training.jpg",
-    alt: "A workshop in progress around a long table, with a facilitator at the far end",
+    src: "/images/training-workshop.jpg",
+    alt: "A workshop in progress around a long table, with facilitators at a whiteboard of sticky notes",
   },
 };
 
@@ -227,12 +236,24 @@ export const advisoryService = {
   ] satisfies ServiceModule[],
   benefits: ["Market entry", "Regulatory clarity", "Digital transformation"],
   /**
-   * Stock photograph placed in the Figma frame (`85:1156`), exported
-   * unmodified. Credit record still owed (CLAUDE.md §6.4).
+   * The photograph placed in the Figma frame (`85:1156`, hash `1368bdf91c`,
+   * 1038 × 800), exported unmodified. Replaced in the 2026-11-18 Figma image
+   * sync. Figma sets the fill to `CROP` with imageTransform
+   * [[0.5766, 0, 0.2115], [0, 1, 0]] — a 520 × 695 window onto the full-height
+   * photograph, starting 21.15% in. That is `object-position` x =
+   * 0.2115 / (1 − 0.5766) = 49.95%, i.e. centred (verified against Figma's
+   * render: MAD 1.06/255).
+   *
+   * The file carries no C2PA/attribution metadata and Figma names no
+   * photographer, so there is no credit to record.
+   *
+   * @placeholder Imagery supplied through Figma — confirm with the client
+   * that it is final (CLAUDE.md §6.4).
    */
   image: {
-    src: "/images/services-advisory.jpg",
-    alt: "Three colleagues reviewing a report together on a sofa in a hotel lounge",
+    src: "/images/services-advisory-laptop.jpg",
+    alt: "Three colleagues in discussion around a laptop at a meeting table",
+    position: "50% 50%",
   },
 };
 

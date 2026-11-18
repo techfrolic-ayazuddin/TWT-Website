@@ -238,6 +238,8 @@ export function AdvisoryService() {
               fill
               sizes="(min-width: 1280px) 520px, 100vw"
               className="object-cover"
+              // Figma `CROP` window onto the photograph (`85:1156`).
+              style={{ objectPosition: advisoryService.image.position }}
             />
           </div>
         </div>

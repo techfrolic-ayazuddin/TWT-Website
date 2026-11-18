@@ -151,8 +151,8 @@ export const sectors: Sector[] = [
       "Commercial & Marketing Activation",
     ].map(serviceFor),
     image: {
-      src: "/images/ind-hospitality.jpg",
-      alt: "A grand hotel lobby with a gold chandelier and a reception desk",
+      src: "/images/ind-hospitality-concierge.jpg",
+      alt: "A concierge in a dark suit showing a tablet to a guest with luggage at a marble reception desk",
     },
   },
   {
@@ -181,8 +181,8 @@ export const sectors: Sector[] = [
       "Integrated Product Development & Digital Transformation",
     ].map(serviceFor),
     image: {
-      src: "/images/ind-healthcare.jpg",
-      alt: "Two healthcare professionals reviewing a tablet together",
+      src: "/images/ind-healthcare-team.jpg",
+      alt: "A team of healthcare professionals in scrubs and white coats discussing a case around a laptop",
     },
   },
   {
@@ -211,8 +211,8 @@ export const sectors: Sector[] = [
       "Commercial & Marketing Activation",
     ].map(serviceFor),
     image: {
-      src: "/images/ind-conglomerates.jpg",
-      alt: "Business colleagues in discussion around a desk in an office",
+      src: "/images/ind-conglomerates-applause.jpg",
+      alt: "A group of colleagues applauding together in a bright office",
     },
   },
 ];

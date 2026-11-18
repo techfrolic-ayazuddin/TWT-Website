@@ -6,6 +6,7 @@
  */
 
 import type { IconName } from "@/components/ui/icon";
+import type { FigmaCrop } from "@/lib/figma-crop";
 import type { RouteStatus } from "./navigation";
 
 export type Segment = "violet" | "pink" | "orange" | "yellow";
@@ -46,12 +47,34 @@ export const hero = {
       "Technology & Public Sector",
     ],
   },
-  /** @placeholder AI-generated concept imagery — replace before launch (CLAUDE.md §6.4). */
+  /**
+   * Figma `Image · arch 13:16` (`417:10991`, hash `4c6066000c`) — a
+   * 1536 × 864 original, exported unmodified and never resized (replaced for
+   * the third time on 2026-11-18, now the higher-quality version). Figma sets
+   * the fill to `CROP` with imageTransform [[0.4277, 0, 0.3051], [0, 0.9944,
+   * 0.0004]] — a 520 × 680 window that is slightly TIGHTER than a cover fit
+   * (a 0.56% extra zoom, anchored to the top). `object-fit: cover` measured
+   * 13.4/255 off Figma's render; reproducing the window itself with
+   * `figmaCropStyle()` measures 3.3 (`crop` below holds Figma's own numbers).
+   *
+   * The file is AI-generated (OpenAI `gpt-image` C2PA Content Credentials), so
+   * there is no photographer credit to record. Stored as a q95 / 4:4:4 JPEG.
+   *
+   * @placeholder AI-generated imagery supplied through Figma — confirm with
+   * the client that it is final before launch (CLAUDE.md §6.4).
+   */
   image: {
-    src: "/images/home-hero-concept.jpg",
-    alt: "A consultant leading a discussion with a leadership team in a bright office",
-    width: 1040,
-    height: 1360,
+    src: "/images/home-hero-meeting-room.jpg",
+    alt: "Five colleagues around a wooden meeting table in a bright, sunlit office, reviewing documents and a laptop",
+    width: 1536,
+    height: 864,
+    /** Figma `imageTransform`, verbatim — see `figmaCropStyle`. */
+    crop: {
+      a: 0.4276956021785736,
+      d: 0.9944174885749817,
+      tx: 0.30505943298339844,
+      ty: 0.00039607298094779253,
+    } satisfies FigmaCrop,
   },
   card: {
     icon: "refresh" as IconName,
@@ -83,12 +106,25 @@ export const brandIntro = {
     href: "/about",
     status: "pending",
   } as HomeLink,
-  /** @placeholder AI-generated concept imagery — replace before launch (CLAUDE.md §6.4). */
+  /**
+   * Figma `Image · 4:5` (`417:10993`, hash `927f76f4bc`) — a 1536 × 1024
+   * original, exported unmodified and never resized (replaced for the third
+   * time on 2026-11-18, now the higher-quality version). Figma now sets the
+   * fill to a plain `FILL`, so it is a centred `object-cover` — the earlier
+   * `CROP` window is gone.
+   *
+   * The file is AI-generated (OpenAI `gpt-image` C2PA Content Credentials), so
+   * there is no photographer credit to record. Stored as a q95 / 4:4:4 JPEG.
+   *
+   * @placeholder AI-generated imagery supplied through Figma — confirm with
+   * the client that it is final before launch (CLAUDE.md §6.4).
+   */
   image: {
-    src: "/images/home-intro-concept.jpg",
-    alt: "A facilitator presenting strategy notes on a whiteboard to a team around a table",
-    width: 1040,
-    height: 1280,
+    src: "/images/home-intro-digital-workspace.jpg",
+    alt: "Five colleagues gathered around an illuminated digital table in a modern workspace",
+    width: 1536,
+    height: 1024,
+    position: "50% 50%",
   },
 };
 
@@ -436,16 +472,24 @@ export const programmesSection: ProgrammesSectionContent = {
   cardLogistics: "programme",
   coverNameplate: "edition",
   registerLabel: "Click to Register",
-  browse: {
-    label: "Browse all editions",
-    href: "/newsletters",
-    status: "pending",
-  } as HomeLink,
+  /**
+   * Client instruction (2026-11-18): "Browse all editions" is removed from the
+   * homepage. Figma's `Home — Desktop` (`111:5752`) still draws it, so this
+   * is a deliberate divergence. `ProgrammesSection` omits the link when this
+   * is `null`, exactly as the Industries variant does.
+   */
+  browse: null,
   moreLabel: "More training programmes",
+  /**
+   * Client instruction (2026-11-18): the remaining link reads "View all
+   * Training Programs" and goes to the built `/training-programs` route.
+   * Figma (`111:5759`) still draws "View the archive" → newsletters, which are
+   * not built and are on hold — so that destination is gone too.
+   */
   archive: {
-    label: "View the archive",
-    href: "/newsletters",
-    status: "pending",
+    label: "View all Training Programs",
+    href: "/training-programs",
+    status: "live",
   } as HomeLink,
 };
 
@@ -523,9 +567,11 @@ export const closingCta: ClosingCtaContent = {
     opens: "consultation",
   } as HomeLink,
   /**
-   * Figma shows `info@theworkingtribe.com` here, while the footer shows
-   * `hello@theworkingtribe.com`. Both are rendered as drawn; the mismatch is
-   * flagged for client confirmation rather than resolved in code.
+   * DIVERGENCE FROM FIGMA — client instruction, 2026-11-18. The Figma Home
+   * frame (`48:458`) still draws `info@theworkingtribe.com` here; the client
+   * confirmed the correct address is `hello@theworkingtribe.com`, which is
+   * also what the footer and every other page carry. The rendered `mailto:`
+   * is built from this field, so the link and its visible text cannot drift.
    */
-  email: "info@theworkingtribe.com",
+  email: "hello@theworkingtribe.com",
 };

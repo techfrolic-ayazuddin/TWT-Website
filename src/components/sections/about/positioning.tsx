@@ -4,7 +4,15 @@ import { cn } from "@/lib/cn";
 import { type } from "@/lib/type";
 import { SectionHeading, sectionFrame } from "../section-heading";
 
-/** 02 · Positioning — Figma `54:163` (1440 × 622, `background/subtle`). */
+/**
+ * 02 · Positioning — Figma `54:163` (1440 × 678, `background/subtle`).
+ *
+ * Redesigned in Figma 2026-11-18 (was 622): the `Copy` column (`54:174`) is a
+ * 744 px column with a **20 px** gap whose lead AND both paragraphs are
+ * `Desktop/Body/Large` (Light 20/32) in `text/heading` — the paragraphs used
+ * to be Body/Regular in `text/body` with a 28 px gap — followed by the pull
+ * quote. 128 + 20 + 96 + 20 + 96 + 20 + 58 = 438.
+ */
 export function Positioning() {
   return (
     <section
@@ -28,10 +36,10 @@ export function Positioning() {
           className="desktop:w-110 desktop:shrink-0"
         />
 
-        <div className="flex min-w-0 flex-1 flex-col gap-7">
+        <div className="flex min-w-0 flex-1 flex-col gap-5">
           <p className={cn(type.bodyLarge, "text-text-heading")}>{positioning.lead}</p>
           {positioning.paragraphs.map((paragraph) => (
-            <p key={paragraph} className={cn(type.body, "text-text-body")}>
+            <p key={paragraph} className={cn(type.bodyLarge, "text-text-heading")}>
               {paragraph}
             </p>
           ))}

@@ -35,6 +35,12 @@ export type Office = {
   name: string;
   address: string;
   /**
+   * The Google Maps link the client supplied for this office, used verbatim by
+   * the Contact page's location cards (opened in a new tab). Never built from
+   * `address` — the short link is the client's choice of exact pin.
+   */
+  mapUrl: string;
+  /**
    * @placeholder true when the address itself awaits confirmation.
    *
    * No longer surfaced to visitors: the "TO CONFIRM" badge Figma draws on the
@@ -97,11 +103,15 @@ export const offices: Office[] = [
   {
     name: "African Region",
     address: "Airport Residential, off Patrice Lumumba Street, Airport, Accra, Ghana.",
+    /** Client-supplied link, "Accra Office" (2026-11-18). Resolves to Airport Residential Area, Accra. */
+    mapUrl: "https://maps.app.goo.gl/7hQzpkS2upNyhho88",
   },
   {
     name: "Asia Region",
     address:
       "Zhongjun Plaza, Lane 1588, Shengchan Road, Minhang District, Shanghai, China.",
+    /** Client-supplied link, "China Office" (2026-11-18). Resolves to Zhongjun Plaza, Minhang, Shanghai. */
+    mapUrl: "https://maps.app.goo.gl/rGe85iydRNUBq2jD9",
     /** @placeholder Spelling and mailing accuracy awaiting confirmation — CLAUDE.md §6.5. */
     unconfirmed: true,
   },
@@ -166,8 +176,14 @@ export const legalLinks: FooterLink[] = [
   { label: "Cookie settings", href: "/cookie-settings", status: "pending" },
 ];
 
-/** Figma: "© 2026 The Working Tribe. All rights reserved." */
-export const copyright = (year: number = 2026) =>
+/**
+ * Figma `Footer/Desktop` → `Bottom` (`44:229`): "© MMXXVI The Working Tribe.
+ * All rights reserved." The year is written in Roman numerals, exactly as
+ * drawn (client instruction, 2026-11-18) — it is a string, not a number, so
+ * nobody "fixes" it back to 2026. The Footer is one shared component, so this
+ * is the only place the year lives.
+ */
+export const copyright = (year: string = "MMXXVI") =>
   `© ${year} ${brand.name}. All rights reserved.`;
 
 /**

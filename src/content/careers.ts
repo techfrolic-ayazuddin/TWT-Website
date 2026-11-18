@@ -32,12 +32,21 @@ export const careersHero = {
   /** Scrolls to the application form on this page. */
   cta: { label: "Apply now", href: "#application" },
   /**
-   * Stock photograph placed in the Figma frame (`Image · arch`), exported
-   * unmodified. Credit record still owed in `credits.ts` (CLAUDE.md §6.4).
+   * Figma `Image · arch` (`95:4415`) — a 1122 × 1402 original exported
+   * unmodified. The fill is a plain centred `FILL` in a 460 × 600 window, which
+   * is exactly CSS `object-cover` (verified against Figma's render: MAD
+   * 1.08/255). Replaced in the 2026-11-18 sync; the previous photograph is
+   * gone.
+   *
+   * The file carries OpenAI/ChatGPT C2PA provenance (AI-generated), so there
+   * is no photographer credit to record.
+   *
+   * @placeholder AI-generated imagery supplied through Figma — confirm with
+   * the client that it is final (CLAUDE.md §6.4).
    */
   image: {
-    src: "/images/careers-hero.jpg",
-    alt: "Colleagues collaborating in a bright, modern workspace",
+    src: "/images/careers-hero-team.jpg",
+    alt: "Three colleagues smiling together over a laptop at a meeting table",
   },
   valuesCard: {
     label: "What we value",

@@ -63,13 +63,19 @@ export const hero: ServiceDetailHero = {
   /** As on the Training page: no prototype reaction, so it goes to Contact. */
   cta: { label: "Enquire about this service", href: "/contact", status: "live" },
   /**
-   * The photograph Figma places in this variant's hero (image `0a6d50f1`),
-   * exported unmodified — the same asset the Services Overview uses. Its
-   * credit record is still owed in `credits.ts` (CLAUDE.md §6.4).
+   * The photograph Figma places in this variant's hero (`B2` → Pink, hash
+   * `1368bdf91c`, 1038 × 800), exported unmodified — the same asset the
+   * Services Overview panel uses. Replaced in the 2026-11-18 Figma image
+   * sync. B2 sets the fill to `CROP` with imageTransform
+   * [[0.8671, 0, 0.0326], …]: a 360 × 320 window starting 3.26% in, i.e.
+   * `object-position` x = 0.0326 / (1 − 0.8671) = 24.5% (verified against
+   * Figma's render: MAD 5.4/255, versus 47.6 for a centred cover). No
+   * attribution exists in Figma — credit record still owed (§6.4).
    */
   image: {
-    src: "/images/services-advisory.jpg",
-    alt: "Three colleagues reviewing a report together on a sofa in a hotel lounge",
+    src: "/images/services-advisory-laptop.jpg",
+    alt: "Three colleagues in discussion around a laptop at a meeting table",
+    position: "24.5% 50%",
   },
 };
 
@@ -117,8 +123,8 @@ export const related = {
       description: services.pillars[0].description,
       href: services.pillars[0].link.href,
       image: {
-        src: "/images/services-training.jpg",
-        alt: "A workshop in progress around a long table, with a facilitator at the far end",
+        src: "/images/training-workshop.jpg",
+        alt: "A workshop in progress around a long table, with facilitators at a whiteboard of sticky notes",
       },
     },
     {
@@ -127,8 +133,8 @@ export const related = {
       description: services.pillars[2].description,
       href: services.pillars[2].link.href,
       image: {
-        src: "/images/service-card-global.png",
-        alt: "Colleagues talking beside a floor-to-ceiling window above a city skyline",
+        src: "/images/service-global-strategy.jpg",
+        alt: "A presenter at a screen in a city-view boardroom, with colleagues seated at a long table",
       },
     },
     {

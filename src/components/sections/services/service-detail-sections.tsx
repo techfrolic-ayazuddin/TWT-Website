@@ -72,7 +72,15 @@ export function ServiceDetailHeroSection({
             white: `segment/yellow/solid` is a LIGHT surface and Figma draws
             navy on it (CLAUDE.md §8 — yellow never takes `text/inverse`). */}
         <div className="desktop:max-w-142 relative flex flex-col gap-7">
-          <Breadcrumb items={content.breadcrumb} tone={tone.surface} />
+          {/* Figma `Service Hero` → `Breadcrumb` is filled with
+              `segment/{hue}/on-solid`. On the light (yellow) surface that is
+              navy `#070052`, not the generic `text/muted` grey this fell back
+              to — Tribe Capital only; the three dark heroes are untouched. */}
+          <Breadcrumb
+            items={content.breadcrumb}
+            tone={tone.surface}
+            className={tone.surface === "light" ? tone.onSolid : undefined}
+          />
           <p className={cn("text-ui-overline", tone.onSolid)}>{content.overline}</p>
           <h1 id="service-title" className={cn(type.hero, tone.onSolid)}>
             {content.title}
@@ -98,6 +106,12 @@ export function ServiceDetailHeroSection({
           priority
           sizes="(min-width: 1280px) 720px, 100vw"
           className="object-cover"
+          // Figma `CROP` fills (Advisory) are a window, not a centred fit.
+          style={
+            content.image.position
+              ? { objectPosition: content.image.position }
+              : undefined
+          }
         />
       </div>
     </section>

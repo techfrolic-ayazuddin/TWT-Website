@@ -38,10 +38,15 @@ export const whyHero = {
    * Photographs placed in the Figma frame (`108:5174`, `108:5175`), exported
    * unmodified. Credit records are still owed in `credits.ts` (CLAUDE.md
    * §6.4, open decision #11) — the same applies to every image in this file.
+   *
+   * The arch (`108:5174`) was replaced in the 2026-11-18 Figma image sync: it
+   * now holds hash `787927efd3` (803 × 805) — the same photograph the
+   * Services Overview places in `85:1077` — as a plain centred `FILL`
+   * (verified against Figma's render: MAD 3.98/255 inside the arch mask).
    */
   arch: {
-    src: "/images/why-hero-arch.jpg",
-    alt: "A professional standing in a modern office",
+    src: "/images/training-workshop.jpg",
+    alt: "A workshop in progress around a long table, with facilitators at a whiteboard of sticky notes",
   } as Photo,
   circle: {
     src: "/images/why-hero-circle.jpg",

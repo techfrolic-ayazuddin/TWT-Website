@@ -22,6 +22,16 @@ const nextConfig: NextConfig = {
     },
   },
 
+  /**
+   * Next 16 only serves the qualities listed here (default `[75]`) and rounds
+   * any other `quality` prop to the nearest entry. 75 stays the default for
+   * every image on the site; 90 is added so the two Home photographs, which are
+   * big, smooth, AI-generated gradients that band and go "dull" at WebP q75,
+   * can ask for it (`quality={90}` in `hero.tsx` / `brand-intro.tsx`).
+   * Overridden by the static-export branch below, which serves the originals.
+   */
+  images: { qualities: [75, 90] },
+
   ...(isStaticExport
     ? {
         /** Emits plain HTML/CSS/JS to `out/` — no Node server required. */

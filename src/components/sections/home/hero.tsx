@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon";
 import { hero } from "@/content/home";
 import { cn } from "@/lib/cn";
+import { figmaCropStyle } from "@/lib/figma-crop";
 import { type } from "@/lib/type";
 import { Eyebrow } from "../section-heading";
 
@@ -140,8 +141,17 @@ export function Hero() {
               width={hero.image.width}
               height={hero.image.height}
               priority
-              sizes="(min-width: 1280px) 520px, 90vw"
-              className="size-full object-cover"
+              // `sizes` must describe how wide the PHOTO is painted, not the
+              // slot: this landscape photo is cropped into a portrait arch, so
+              // it is drawn 233.8% of the arch width — about 1216 px, not 520.
+              // Telling the browser "520px" made it fetch a 640 px file and
+              // stretch it ~1.9× (the "dull" look). Mobile: the arch is
+              // 86.667% of (100vw − 2rem), so 2.338 × 0.86667 = 2.03.
+              sizes="(min-width: 768px) 1216px, calc((100vw - 2rem) * 2.03)"
+              quality={90}
+              // Figma's `CROP` window onto the photograph (`417:10991`),
+              // reproduced exactly — see `figmaCropStyle`.
+              style={figmaCropStyle(hero.image.crop)}
             />
           </div>
 

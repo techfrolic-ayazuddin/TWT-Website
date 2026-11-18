@@ -181,11 +181,19 @@ function HealthcareSector({ sector }: { sector: Sector }) {
     >
       {/* Background photograph — desktop only. Percentages are Figma's
           (−440, −140, 1880 × 1200) over the 1440 × 919 frame (one-off crop
-          values, CLAUDE.md §3.1). */}
+          values, CLAUDE.md §3.1).
+
+          Figma sets this fill to `CROP` with imageTransform
+          [[1, 0, −0.1485], [0, 0.9539, 0.0231]]: a plain cover fit, panned
+          right by 0.1485 × 1880 = 279.2px. The box is therefore shifted by that
+          much — left −440 + 279.2 = −160.8px = −11.17% — and still spans the
+          whole section (−160.8 … 1719.2px over 0 … 1440). Verified against
+          Figma's own render of the section: MAD 1.05/255, versus 48.8 for a
+          centred cover. Figma image sync, 2026-11-18. */}
       <div aria-hidden="true" className="desktop:block absolute inset-0 hidden">
         <div
           className="absolute"
-          style={{ left: "-30.56%", top: "-15.23%", width: "130.56%", height: "130.58%" }}
+          style={{ left: "-11.17%", top: "-15.23%", width: "130.56%", height: "130.58%" }}
         >
           <Image
             src={sector.image.src}

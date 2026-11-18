@@ -64,7 +64,8 @@ export function AboutHero() {
         </div>
 
         {/* Figma `Image · 16:7 team portrait` — 1280 × 560, radius 32, with the
-            caption card 400 wide, 32px from the right and 18px from the bottom.
+            caption card 400 wide, 32px from the right and 15px from the bottom
+            (it was 18 before the copy grew to four lines).
             Below tablet the card would cover most of the photograph, so it
             sits under the image and overlaps its lower edge instead. */}
         <div className="relative">
@@ -82,13 +83,23 @@ export function AboutHero() {
           <div
             className={cn(
               "bg-background-inverse relative mx-4 -mt-12 flex flex-col gap-2 rounded-xl p-7",
-              "tablet:absolute tablet:right-8 tablet:bottom-4.5 tablet:mx-0 tablet:mt-0 tablet:w-100",
+              "tablet:absolute tablet:right-8 tablet:bottom-3.75 tablet:mx-0 tablet:mt-0 tablet:w-100",
             )}
           >
             <p className="text-ui-overline text-accent-yellow">
               {aboutHero.caption.label}
             </p>
-            <p className={cn(type.body, "text-text-inverse")}>{aboutHero.caption.text}</p>
+            {/* Figma's text box is 353 wide inside the card's 344px content area, so it
+                runs 9px into the right padding; matching it keeps the same line
+                breaks as the design. */}
+            <p
+              className={cn(
+                type.body,
+                "text-text-inverse tablet:w-88.25 tablet:max-w-none",
+              )}
+            >
+              {aboutHero.caption.text}
+            </p>
           </div>
         </div>
       </div>

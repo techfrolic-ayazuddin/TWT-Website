@@ -8,9 +8,16 @@ import { cn } from "@/lib/cn";
 export function Breadcrumb({
   items,
   tone = "light",
+  className,
 }: {
   items: { label: string; href?: string }[];
   tone?: "light" | "dark";
+  /**
+   * Replaces the tone's text colour — for a hero whose surface has its own
+   * `on-solid` token (the Service Hero's `segment/{hue}/on-solid`). Colour
+   * only: layout, typography and links are untouched.
+   */
+  className?: string;
 }) {
   const dark = tone === "dark";
   return (
@@ -19,6 +26,7 @@ export function Breadcrumb({
         className={cn(
           "text-ui-caption flex items-center gap-2",
           dark ? "text-text-inverse-muted" : "text-text-muted",
+          className,
         )}
       >
         {items.map((crumb, i) => (

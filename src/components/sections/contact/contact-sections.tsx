@@ -9,7 +9,6 @@ import { consultation } from "@/content/consultation";
 import { contactEnquiry, contactHero } from "@/content/contact";
 import { contact, offices, phoneNumbers } from "@/content/site";
 import { cn } from "@/lib/cn";
-import { googleMapsSearchHref } from "@/lib/maps";
 import { type } from "@/lib/type";
 import { Breadcrumb } from "../breadcrumb";
 import { Eyebrow, sectionFrame } from "../section-heading";
@@ -69,17 +68,29 @@ export function ContactHero() {
           </Link>
         </div>
 
-        {/* Figma `Hero visual` — 540 × 620 stage: arch 460 × 620 at x 80
-            (radius 230/230/32/32); `Promise card` 300 wide at (0, 440). */}
+        {/* Figma `Hero visual` — 540 × 620 stage. The arch (radius
+            230/230/32/32) is now 520 × 660 at (65, −40) — it rises 40px above
+            the stage and overhangs it 45px to the right — where it used to be
+            460 × 620 at x 80. `Promise card` 300 wide at (0, 440).
+            From `tablet` up it takes Figma's window as percentages of the
+            stage; on mobile the overhang would run past the viewport edge, so
+            there it stays inside the stage as before. */}
         <div className="desktop:mx-0 relative mx-auto aspect-[540/620] w-full max-w-135 min-w-0 flex-1">
-          <div className="absolute inset-y-0 right-0 w-[85.19%] overflow-hidden rounded-t-[999px] rounded-b-2xl">
+          <div
+            className={cn(
+              "absolute inset-y-0 right-0 w-[85.19%] overflow-hidden rounded-t-[999px] rounded-b-2xl",
+              "tablet:inset-y-auto tablet:top-[-6.45%] tablet:right-auto tablet:left-[12.04%] tablet:h-[106.45%] tablet:w-[96.3%]",
+            )}
+          >
             <Image
               src={contactHero.image.src}
               alt={contactHero.image.alt}
               fill
               priority
-              sizes="(min-width: 768px) 460px, 85vw"
+              sizes="(min-width: 768px) 520px, 85vw"
               className="object-cover"
+              // Figma `CROP` window onto the photograph (`90:4092`).
+              style={{ objectPosition: contactHero.image.position }}
             />
           </div>
           <div className="bg-surface-default shadow-elevation-3 tablet:top-[70.97%] tablet:bottom-auto absolute -bottom-6 left-0 flex w-[min(18.75rem,80%)] flex-col gap-3 rounded-xl p-6">
@@ -293,18 +304,17 @@ export function ContactEnquiry() {
               address is still flagged `unconfirmed` in `site.ts`, it is just
               no longer called out to the visitor.
 
-              Both rows open Google Maps in a new tab on the complete address
-              (client instruction, 2026-11-17). They are now links, so they
-              take the same `State=Hover` as before PLUS `State=Focus` and a
-              pointer cursor — the clickability cues the instruction asks for,
-              without altering the drawn card. No visible "action" label is
-              added: Figma's action slot would reflow these two-line addresses,
-              and the instruction is to preserve the displayed address text.
-              Screen readers get the destination from `srAction` instead.
-
-              The Asia address being unconfirmed does not block this — unlike a
-              phone number, a map search cannot "misdial": it searches the exact
-              string we display, and a wrong address is visible on arrival.
+              Both rows open Google Maps in a new tab (client instruction,
+              2026-11-17), and since 2026-11-18 each opens the exact link the
+              client supplied for that office — `mapUrl` in `site.ts`, used
+              verbatim: African Region → the Accra Office link, Asia Region →
+              the China Office link. They are links, so they take the same
+              `State=Hover` as before PLUS `State=Focus` and a pointer cursor —
+              the clickability cues the instruction asks for, without altering
+              the drawn card. No visible "action" label is added: Figma's
+              action slot would reflow these two-line addresses, and the
+              instruction is to preserve the displayed address text. Screen
+              readers get the destination from `srAction` instead.
             */}
             {offices.map((office) => (
               <ContactOption
@@ -312,7 +322,7 @@ export function ContactEnquiry() {
                 icon="map-pin"
                 label={office.name}
                 value={office.address}
-                href={googleMapsSearchHref(office.address)}
+                href={office.mapUrl}
                 srAction={actions.directions}
                 external
               />

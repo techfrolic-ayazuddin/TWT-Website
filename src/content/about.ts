@@ -38,9 +38,15 @@ export const aboutHero = {
     width: 1500,
     height: 1001,
   },
+  /**
+   * Figma `Caption card` (`54:161` / `54:162`). The copy was rewritten in
+   * Figma and is transcribed verbatim, Oxford comma included. The label is
+   * drawn `UI/Overline` (UPPER), so it is stored in sentence case and the
+   * style upper-cases it.
+   */
   caption: {
     label: "Working globally",
-    text: "With depth in hospitality and services, manufacturing and industry, healthcare, and technology and the public sector.",
+    text: "Delivering expertise across hospitality, manufacturing, healthcare, technology, and the public sector to drive sustainable growth and lasting transformation.",
   },
 };
 

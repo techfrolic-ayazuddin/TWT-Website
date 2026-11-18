@@ -36,8 +36,13 @@ export function BrandIntro() {
               alt={brandIntro.image.alt}
               width={brandIntro.image.width}
               height={brandIntro.image.height}
-              sizes="(min-width: 1280px) 520px, (min-width: 768px) 520px, 100vw"
+              // As in the hero: the photo (3:2) is cropped into a 520 × 640
+              // slot, so it is painted 1.846× the slot width (960 px at 520).
+              sizes="(min-width: 768px) 960px, calc((100vw - 2rem) * 1.85)"
+              quality={90}
               className="size-full object-cover"
+              // Figma `CROP` window onto the photograph (`417:10993`).
+              style={{ objectPosition: brandIntro.image.position }}
             />
           </div>
 

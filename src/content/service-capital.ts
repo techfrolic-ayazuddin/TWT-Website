@@ -187,8 +187,8 @@ export const related = {
       description: services.pillars[0].description,
       href: services.pillars[0].link.href,
       image: {
-        src: "/images/services-training.jpg",
-        alt: "A workshop in progress around a long table, with a facilitator at the far end",
+        src: "/images/training-workshop.jpg",
+        alt: "A workshop in progress around a long table, with facilitators at a whiteboard of sticky notes",
       },
     },
     {
@@ -197,8 +197,8 @@ export const related = {
       description: services.pillars[1].description,
       href: services.pillars[1].link.href,
       image: {
-        src: "/images/services-advisory.jpg",
-        alt: "Three colleagues reviewing a report together on a sofa in a hotel lounge",
+        src: "/images/service-card-advisory.jpg",
+        alt: "Colleagues reviewing printed charts around a dark boardroom table",
       },
     },
     {
@@ -207,8 +207,8 @@ export const related = {
       description: services.pillars[2].description,
       href: services.pillars[2].link.href,
       image: {
-        src: "/images/service-card-global.png",
-        alt: "Colleagues talking beside a floor-to-ceiling window above a city skyline",
+        src: "/images/service-global-strategy.jpg",
+        alt: "A presenter at a screen in a city-view boardroom, with colleagues seated at a long table",
       },
     },
   ] satisfies RelatedService[],

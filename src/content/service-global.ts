@@ -70,13 +70,18 @@ export const hero: ServiceDetailHero = {
    */
   cta: { label: "Enquire about this service", href: "/contact", status: "live" },
   /**
-   * The photograph Figma places in this variant's hero (image `ccbfab17`),
-   * exported unmodified — the same asset the Training page's related-services
-   * card uses. Credit record still owed (CLAUDE.md §6.4).
+   * The photograph Figma places in this variant's hero (`B2` → Orange, hash
+   * `4500ddf357`, 1442 × 803), exported unmodified — the same asset the
+   * Training template's Global Solutions related-service card uses. Replaced
+   * in the 2026-11-18 Figma image sync. Figma now sets this fill to a plain
+   * `FILL` (it was a right-hand `CROP` of the previous photograph), so it is
+   * a centred `object-cover` (verified against Figma's render: MAD 6.2/255,
+   * versus 70.8 for a right-aligned crop). Credit record still owed
+   * (CLAUDE.md §6.4).
    */
   image: {
-    src: "/images/service-card-global.png",
-    alt: "Colleagues talking beside a floor-to-ceiling window above a city skyline",
+    src: "/images/service-global-strategy.jpg",
+    alt: "A presenter at a screen in a city-view boardroom, with colleagues seated at a long table",
   },
 };
 
@@ -123,8 +128,8 @@ export const related = {
       description: services.pillars[0].description,
       href: services.pillars[0].link.href,
       image: {
-        src: "/images/services-training.jpg",
-        alt: "A workshop in progress around a long table, with a facilitator at the far end",
+        src: "/images/training-workshop.jpg",
+        alt: "A workshop in progress around a long table, with facilitators at a whiteboard of sticky notes",
       },
     },
     {
@@ -133,8 +138,8 @@ export const related = {
       description: services.pillars[1].description,
       href: services.pillars[1].link.href,
       image: {
-        src: "/images/services-advisory.jpg",
-        alt: "Three colleagues reviewing a report together on a sofa in a hotel lounge",
+        src: "/images/service-card-advisory.jpg",
+        alt: "Colleagues reviewing printed charts around a dark boardroom table",
       },
     },
     {

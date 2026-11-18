@@ -45,7 +45,11 @@ export type ServiceDetailHero = {
   title: string;
   intro: string;
   cta: HomeLink;
-  image: { src: string; alt: string };
+  /**
+   * `position` is a CSS `object-position` for heroes whose Figma fill is a
+   * `CROP` rather than a centred `FILL` (Advisory). Omitted = centred.
+   */
+  image: { src: string; alt: string; position?: string };
 };
 
 export type ValueProposition = {
@@ -112,12 +116,20 @@ export const hero: ServiceDetailHero = {
    */
   cta: { label: "Enquire about this service", href: "/contact", status: "live" },
   /**
-   * Stock photograph placed in the Figma frame, exported unmodified. Its
-   * credit record is still owed in `credits.ts` (CLAUDE.md §6.4).
+   * The photograph placed in the Figma frame (`01 · Service hero`, hash
+   * `7d31a8b80e`, 1207 × 806), exported unmodified. Replaced in the
+   * 2026-11-18 Figma image sync. Figma sets the fill to `CROP` with
+   * imageTransform [[0.7512, 0, 0.0825], …]: a 720 × 640 window starting
+   * 8.25% in, i.e. `object-position` x = 0.0825 / (1 − 0.7512) = 33.2%
+   * (verified against Figma's render: MAD 1.57/255, versus 43.6 for a
+   * centred cover). The `B2` variants board draws a slightly different pan
+   * (38.9%); the template frame is the one this page is built from. Credit
+   * record still owed in `credits.ts` (CLAUDE.md §6.4).
    */
   image: {
-    src: "/images/service-training-hero.jpg",
-    alt: "A trainer presenting to a seated group in a bright classroom",
+    src: "/images/service-training-hero-seminar.jpg",
+    alt: "A presenter standing before an engaged, seated audience in a bright room",
+    position: "33.2% 50%",
   },
 };
 
@@ -271,8 +283,10 @@ export const related = {
         "Market entry, regulatory landscapes and digital transformation for international and local brands.",
       href: services.pillars[1].link.href,
       image: {
-        src: "/images/services-advisory.jpg",
-        alt: "Three colleagues reviewing a report together on a sofa in a hotel lounge",
+        // Template card `56:543` (hash `122c501971`) — a different photograph
+        // from the Advisory hero/panel (`1368bdf91c`). 2026-11-18 image sync.
+        src: "/images/service-card-advisory.jpg",
+        alt: "Colleagues reviewing printed charts around a dark boardroom table",
       },
     },
     {
@@ -281,8 +295,9 @@ export const related = {
       description: services.pillars[2].description,
       href: services.pillars[2].link.href,
       image: {
-        src: "/images/service-card-global.png",
-        alt: "Colleagues talking beside a floor-to-ceiling window above a city skyline",
+        // Template card `56:553` (hash `4500ddf357`) — also the Global hero.
+        src: "/images/service-global-strategy.jpg",
+        alt: "A presenter at a screen in a city-view boardroom, with colleagues seated at a long table",
       },
     },
     {

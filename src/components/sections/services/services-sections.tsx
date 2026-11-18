@@ -86,6 +86,8 @@ export function ServicesHero() {
             priority
             sizes="(min-width: 1280px) 1280px, 100vw"
             className="object-cover"
+            // Figma `CROP` window onto the photograph (`87:1494`).
+            style={{ objectPosition: servicesHero.image.position }}
           />
           <p
             className={cn(

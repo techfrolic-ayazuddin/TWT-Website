@@ -42,12 +42,20 @@ export const contactHero = {
     status: "live",
   } as HomeLink,
   /**
-   * Stock photograph placed in the Figma frame (`90:4092`), exported
-   * unmodified. Credit record still owed in `credits.ts` (CLAUDE.md §6.4).
+   * The photograph placed in the Figma frame (`90:4092`), exported unmodified
+   * (1071 × 802). Figma sets the fill to `CROP` with imageTransform
+   * [[0.59, 0, 0.2198], [0, 1, 0]] — a 520 × 660 window onto the full-height
+   * photograph, i.e. `object-position` x = 0.2198 / (1 − 0.59) = 53.6%
+   * (verified against Figma's render: MAD 0.44/255, versus 30.3 for a centred
+   * cover).
+   *
+   * No provenance metadata is embedded and Figma records no source or
+   * photographer for it, so no credit is recorded (CLAUDE.md §6.4).
    */
   image: {
-    src: "/images/contact-hero.jpg",
-    alt: "A smiling professional standing with her arms folded",
+    src: "/images/contact-hero-conversation.jpg",
+    alt: "A man in a navy blazer listening and smiling during a conversation across a desk with a laptop",
+    position: "53.6% 50%",
   },
   promise: "Your confidential, lasting transformation partner.",
 };
