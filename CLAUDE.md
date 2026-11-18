@@ -317,6 +317,13 @@ other 12 are the older AI-generated concept images still awaiting replacement.
   commercial and non-commercial use, attribution not required but appreciated.
 - **Site-wide image replacement is still pending.** Most of the site still shows
   the original AI-generated concept imagery.
+- **Images the client dropped into Figma's `Shared images` (`367:7271`) and
+  `Other images` (`376:7285`) sections carry no attribution.** Their layer
+  names are filenames ("Screenshot 2026-11-16 …", "hospitality and
+  services.png3"), and none has a "Photo by" line. The Advisory and both
+  homepage photographs additionally carry OpenAI/ChatGPT C2PA provenance
+  (AI-generated). So **no credit record can be written for any of them** —
+  `credits.ts` still does not exist, and nothing may be invented for it.
 - **`A · About Us — Desktop` has already been manually updated with stock
   photos. Do not modify the About Us desktop design again unless explicitly
   instructed.**
@@ -665,6 +672,43 @@ shipped — no content uses them.
   accented character and paint it in Arial.
 - `next/font` options must be inline literals — the `unicode-range` strings
   cannot be shared constants.
+- **Re-verified 2026-11-18** (production build and the dev server on :3000, in
+  Chrome and Edge; Firefox by screenshot): 274,284 glyphs across all 12
+  routes at 1440 / 768 / 375 — every one in the Sofia Sans web font — plus
+  every overlay state (header dropdowns, both dialogs, the Select listbox,
+  validation errors, the mobile drawer). No `system-ui` / Segoe UI reaches
+  any element: Tailwind's preflight Segoe list is only a `var()` fallback and
+  `--default-font-family` is defined. All 42 Figma text styles match
+  `tokens.css` exactly, and `font/family/brand` is still `Sofia Sans Semi
+Condensed`. To check it yourself: DevTools → Elements → Computed →
+  _Rendered Fonts_ must read "Sofia Sans Semi Condensed — Web font".
+- **Font re-evaluated against alternatives, 2026-11-18 — Sofia Sans Semi
+  Condensed is KEPT.** The brief was open to a different webfont "if Sofia
+  Sans Semi Condensed does not provide the closest visual match". It does, by a
+  wide margin, because it is the font Figma itself draws with:
+  - Figma: 6,838 of 6,839 text nodes are Sofia Sans Semi Condensed
+    (Bold 3,764 · Regular 2,919 · Light 157), none has a missing font. The one
+    exception is a stray `Antipasto Pro` label on the Design System page.
+  - Pixel diff of the real pages against Figma's own renders at 1440 (mean
+    greyscale difference, 0–255; four regions — About Positioning, Contact
+    hero, Footer, Industries 03.1). Sofia Sans Semi Condensed **0.8–1.6** on the
+    three clean regions; Sofia Sans Condensed 3.7–10.8, Sofia Sans 5.8–11.1,
+    Barlow Semi Condensed 4.3–8.0, Fira Sans Condensed 3.0–6.1, IBM Plex Sans
+    Condensed 3.9–7.8, Roboto Condensed 3.9–8.0, **Segoe UI 6.0–10.9**, Arial
+    6.6–13.2. (The Contact-hero region is excluded from the ranking: it carries
+    a wrap difference and a missing icon that dwarf the font signal.)
+  - Line-count agreement: **791 of 810** Figma text blocks (97.7 %) wrap
+    identically in the browser at 1440. The genuine exceptions are box-width
+    effects, not letterforms: the Contact H1 (the string is 643.4 px in a
+    644 px box, so Figma wraps it and Chrome does not) and the Winter Forum
+    month label.
+  - Because the web font _is_ the Figma font, any substitute can only move the
+    site further from the design. **If the site still looks like Segoe UI on a
+    given machine, the web font is not loading there** — check DevTools →
+    Computed → _Rendered Fonts_, and hard-reload (a stale dev tab or cached CSS
+    is the usual cause).
+  - The re-test script and the candidate set are throwaway; nothing was added
+    to `package.json` and no tokens changed.
 - Verified 2026-11-12 with CDP `CSS.getPlatformFontsForNode` on `/`,
   `/about` and `/why-twt` at 1440 and 375 (header, Company dropdown, mobile
   drawer, footer, registration dialog, input values and placeholders): every
@@ -708,8 +752,10 @@ set them to `false`, it simply omits them.
 
 The site is static-first marketing content, so the explicit `"use cache"`
 model adds friction without a payoff. Revisit if live data arrives (for
-example a CMS-backed newsletter archive). The only option configured is the
-Turbopack CSS rule that Tailwind v4 requires.
+example a CMS-backed newsletter archive). The options configured are the
+Turbopack CSS rule that Tailwind v4 requires and `images.qualities: [75, 90]`
+(Next 16 serves only the listed qualities; 90 is used by the two Home
+photographs — see "Image quality" in the fifth pass below).
 
 ### Git
 
@@ -717,8 +763,9 @@ Turbopack CSS rule that Tailwind v4 requires.
   configure it automatically.
 - The repository currently resolves to
   `techfrolicayaz <ayazuddin@techfrolic.com>` from the global config.
-- The repository has exactly **one commit**, created automatically by
-  `create-next-app` during Phase 0:
+- The first commit was created automatically by `create-next-app` during
+  Phase 0 (a second, `44712b4 latest changes`, was added by the user on or
+  before 2026-11-18 — Claude Code still creates no commits):
 
   |                    |                                             |
   | ------------------ | ------------------------------------------- |
@@ -842,12 +889,22 @@ exports in `public/decor/`.
   `scroll-behavior: smooth` ONLY under `prefers-reduced-motion:
 no-preference`. A section target uses `scroll-mt-[calc(1.5rem_-_var(--section-y))]`
   so its content (not its empty padding) lands under the header.
-- `public/images/home-*-concept.jpg` are the AI concept images from Figma —
-  `@placeholder`, to be replaced (§6.4).
+- `public/images/home-hero-meeting-room.jpg` (1536 × 864) and
+  `home-intro-digital-workspace.jpg` (1536 × 1024) are the two homepage
+  photographs. They were replaced **three times** on 2026-11-18 (the latest is
+  the fifth pass, below). The hero is a `CROP` fill reproduced exactly by
+  `figmaCropStyle()` (`lib/figma-crop.ts`) from Figma's own numbers in
+  `home.ts`; the intro is a plain `FILL`, so a centred `object-cover`. Both
+  carry OpenAI `gpt-image` C2PA credentials in Figma (AI-generated), so there is
+  no photographer credit — still `@placeholder` until the client confirms they
+  are final (§6.4).
 - The homepage frame has **8 content sections** (there is no "07"); its Figma
   layer `06 · Newsletters` holds the Training Programs content.
-- The closing CTA shows `info@theworkingtribe.com`; the footer shows
-  `hello@theworkingtribe.com`. Both are as drawn — client to confirm.
+- The closing CTA ("Let's talk") and the footer both show
+  `hello@theworkingtribe.com`. **Client instruction, 2026-11-18:** Figma's
+  Home frame (`48:458`) still draws `info@theworkingtribe.com` in the closing
+  CTA; the build uses `hello@` (the `mailto:` is built from the same
+  `closingCta.email` field). Do not "fix" it back to match Figma.
 
 Phase 5.1 (About Us) added `/about` (`src/app/about/page.tsx`),
 `src/content/about.ts` and `src/components/sections/about/` — built from
@@ -939,9 +996,11 @@ from `C · Industries — Desktop` (`57:502`), eleven sections in frame order.
   the homepage's (`48:312`)**: no Venue row, "To be announced" dates, no
   "Browse all editions" link, season-only cover nameplates, and a link to
   `/training-programs`. `Programmes` takes a `content` prop
-  (`ProgrammesSectionContent`); the homepage passes nothing and is
-  unchanged. Whether the homepage should adopt the newer design is a client
-  question.
+  (`ProgrammesSectionContent`); the homepage passes nothing. Whether the
+  homepage should adopt the newer design wholesale is a client question — but
+  since 2026-11-18 it already takes two of its changes by instruction: no
+  "Browse all editions", and "View all Training Programs" → `/training-programs`
+  (see the 404 / Homepage CTA block below).
 - "How we help" links are the approved service modules from `home.ts`
   (`serviceFor()` throws at build if a module is renamed). They go to the
   service pages, which are not built yet.
@@ -966,17 +1025,21 @@ Phase 5.5 (Contact Us, favicon, consultation CTAs) added `/contact`
   nothing promises a call that cannot be placed (§6.3). The "TO CONFIRM"
   badge Figma draws on the Asia Region row was removed on client
   instruction. Both recorded in `DESIGN-CHANGES.md`.
-- **The two office rows open Google Maps** (client instruction, 2026-11-17).
-  `googleMapsSearchHref()` in `lib/maps.ts` builds a plain Maps URL API link
-  from the address **verbatim** — no key, no script, no iframe, nothing sent
-  to Google until the visitor clicks. They open in a new tab with
+- **The two office rows open Google Maps** (client instruction, 2026-11-17;
+  links supplied 2026-11-18). Each `Office` in `site.ts` carries a `mapUrl`,
+  the exact link the client supplied — African Region →
+  `https://maps.app.goo.gl/7hQzpkS2upNyhho88` (Accra Office), Asia Region →
+  `https://maps.app.goo.gl/rGe85iydRNUBq2jD9` (China Office) — used verbatim.
+  (`lib/maps.ts`, which built a search URL from the address, was deleted.)
+  No key, no script, no iframe, nothing sent to Google until the visitor
+  clicks. They open in a new tab with
   `rel="noopener noreferrer"`, which gives them the card's `State=Focus` and a
   pointer cursor on top of the `State=Hover` they already had. No visible
   action label is added — Figma's action slot would reflow the two-line
   addresses — so the destination is carried by an `sr-only` suffix **inside**
   the link, never an `aria-label` that could drift from the visible address
-  (§9.4). Asia being unconfirmed does not block this: a map search cannot
-  misdial, it searches the exact string we display.
+  (§9.4). Asia being unconfirmed does not block this: a map link cannot
+  misdial, and a wrong pin is visible on arrival.
 - **Every "Request a consultation" CTA opens the shared popup.** Driven from
   the content layer: a link with `opens: "consultation"` renders as
   `CtaButton` (`consultation/cta-button.tsx`) → `ConsultationTrigger`. `href`
@@ -1047,10 +1110,11 @@ service` links to `/contact`, where the same enquiry form is rendered
   are copy this frame carries and exist nowhere else.
 - The `06 · Related services` card for Advisory carries **shorter copy than
   the portfolio description** in `home.ts`; it is transcribed as drawn.
-- `public/images/service-training-{hero,collage-a,collage-b}.jpg` and
-  `service-card-{global,capital}.jpg` are the stock photos placed in the
-  frame; the Advisory card reuses `services-advisory.jpg`. Credits are still
-  owed (§6.4).
+- `public/images/service-training-{hero-seminar,collage-a,collage-b}.jpg`,
+  `service-card-{advisory,capital}.jpg` and `service-global-strategy.jpg` are
+  the photos placed in the frame (the hero, the Advisory card and the Global
+  card were replaced in the 2026-11-18 image syncs). Credits are still owed
+  (§6.4).
 - **Services Overview hero is 64/72 on desktop** — a client instruction
   (Phase 5.7) applied to that one heading only, matching the homepage hero.
   Tablet (56/64) and mobile (44/52) are unchanged, and the
@@ -1156,6 +1220,148 @@ skipped at the time.
   & value proposition, Imagery & outcomes, and Methodology.
 - `07 · Enquiry CTA` reuses the approved, service-neutral closing CTA from
   the Services Overview (`85:1370`), as the Advisory page does.
+
+**Figma image sync (2026-11-18)** replaced stale photographs and corrected
+their crops. Method, so it can be repeated:
+
+- Originals are read from Figma with `getImageByHash().getBytesAsync()`
+  (byte-exact — CRC-checked) and saved **un-cropped** as optimised JPEGs.
+  The crop is CSS, never baked in.
+- A `FILL` fill is `object-fit: cover`, centred — nothing to add. A `CROP`
+  fill carries `imageTransform [[a,0,tx],[0,d,ty]]`; for a full-height window
+  that is `object-position` x = `tx / (1 − a)`. It is stored as a `position`
+  field in the content layer. Each value was checked against Figma's own
+  render of the node (mean abs diff < 2/255, against 30–67 for a centred
+  cover). **Do not centre-crop a `CROP` image.**
+- **Replaced:** Home hero + intro (since replaced again — see the fourth
+  pass below), Industries
+  Hospitality / Healthcare / Conglomerates (`ind-{hospitality-concierge,
+healthcare-team,conglomerates-applause}.jpg`), the Advisory photograph
+  (since superseded — see the third pass below) and the Contact hero
+  (`contact-hero-conversation.jpg`). The superseded files were deleted.
+- **Crops:** Contact arch `53.6% 50%`. `ServiceDetailHero.image` gained an
+  optional `position` (the Advisory crops of this pass were later replaced).
+- **Healthcare background** is a `CROP` with a horizontal pan: the 1880 px box
+  moves from `left −30.56%` to `−11.17%` (`−440 + 0.1485 × 1880` px).
+- **Contact arch window changed in Figma:** 520 × 660 at (65, −40) inside the
+  540 × 620 stage (was 460 × 620 at x 80). Applied from `tablet` up; on
+  mobile it would overhang the viewport, so it stays inside the stage there.
+- **About caption card:** copy rewritten in Figma ("Delivering expertise
+  across hospitality, …"); now 4 lines, 15 px from the bottom, text box 353 px
+  wide (it overhangs the 344 px content box by 9 px, which sets the line
+  breaks).
+- ~~Known and NOT changed: Global Solutions hero cropped to the right.~~
+  **Superseded 2026-11-18 (third sync, below):** Figma replaced that photograph
+  and now draws it as a plain centred `FILL`, so the build's centred crop is
+  correct again.
+
+**Figma image sync, third pass (2026-11-18)** — Why TWT, Services Overview and
+the four service detail pages. Same method as above. Identified by comparing
+every placed `imageHash` with the one shipping:
+
+- **Replaced:** `services-hero-presentation.jpg` (Services hero `87:1494`,
+  `CROP` → `object-position 50% 32.4%`), `training-workshop.jpg` (Services
+  Training `85:1077` **and** the Why TWT hero arch `108:5174`, both centred
+  `FILL`; it is also the "Training" related card on the Advisory, Global and
+  Tribe Capital pages), `services-advisory-laptop.jpg` (Services Advisory panel
+  `85:1156` `50% 50%` and the Advisory hero `24.5% 50%`),
+  `service-training-hero-seminar.jpg` (Training hero, `33.2% 50%`),
+  `service-card-advisory.jpg` (the Advisory related card — a **different
+  photograph** from the Advisory hero) and `service-global-strategy.jpg`
+  (Global hero and the Global related card, centred). Seven superseded files
+  were deleted.
+- **Unchanged** (same Figma hash as the previous sync, or pixel-identical to
+  the shipped file): the Why TWT circle and the three anchor photographs, the
+  Training collage, the Tribe Capital hero and card, and the Home hero and
+  intro (render diff 1.35/255).
+- `Home — Desktop Copy` (`227:10051`) carries different Home images. It is not
+  canonical (§1) and was not used.
+- `training-workshop.jpg` is only 803 × 805 px in Figma — soft above ~1.15×
+  device-pixel density on the 560 × 700 Services frame. Reported, not changed.
+
+**Footer copyright (2026-11-18):** Figma's `Footer/Desktop` draws
+"© MMXXVI The Working Tribe. All rights reserved." (`44:229`). `copyright()` in
+`site.ts` now defaults to the string `"MMXXVI"`; the footer is one shared
+component, so every page changes together. (The unused `Layout=Modern` footer
+and `Home 3` still draw 2026.)
+
+**Fourth pass (2026-11-18) — Home images, About Positioning, Tribe Capital
+breadcrumb, Contact map links:**
+
+- **Home:** both photographs were replaced again (superseded by the fifth
+  pass below). The Home frame's image nodes were re-created as `417:10991`
+  (hero arch) and `417:10993` (intro).
+- **About `02 · Positioning`** (`54:163`, now 678 px tall; was 622): the copy
+  column is a 20 px-gap stack in which the lead **and both paragraphs** are
+  `Desktop/Body/Large` (Light 20/32) in `text/heading` — the paragraphs used to
+  be Body/Regular in `text/body` with a 28 px gap. Only `positioning.tsx`
+  changed; no other About section was touched.
+- **Tribe Capital breadcrumb:** Figma fills every `Service Hero` breadcrumb
+  with `segment/{hue}/on-solid`, which is navy `#070052` on the yellow hero.
+  The build fell back to the generic `text/muted` grey. `Breadcrumb` gained an
+  optional `className` (colour only) and the hero passes `tone.onSolid` on a
+  light surface — i.e. Tribe Capital only. ⚠️ The same Figma rule draws the
+  Training, Advisory and Global breadcrumbs in **100 % white**, while the build
+  uses `text/inverse-muted` (white 72 %). Not changed — outside the brief.
+- **Contact map links:** `Office.mapUrl` (see Phase 5.5 above).
+
+**Fifth pass (2026-11-18) — Home image quality:** the two Home photographs were
+replaced with the higher-resolution versions (hero `4c6066000c`, 1536 × 864;
+intro `927f76f4bc`, 1536 × 1024), and the "dull, low-quality" look was traced to
+how they were DELIVERED, not to the files:
+
+- **Image quality — the rule to keep.** `next/image` picks a file from `sizes`.
+  `sizes` must describe how wide the **photo is painted**, not the box it sits
+  in. When `object-cover` crops a landscape photo into a portrait slot the photo
+  is painted much wider than the slot (the hero arch paints it 233.8 % wide,
+  ~1216 px for a 520 px slot). Saying `520px` made the browser fetch a 640 px
+  WebP and stretch it ~1.9× (2.2× on a 2× screen): only 35 % of the fine detail
+  survived. The two Home images now state their real painted width, ask for
+  `quality={90}` (WebP q75 was the second cause), and the optimizer returns the
+  full 1536 px. `next.config.ts` therefore allows `images.qualities: [75, 90]`.
+  **Check `sizes` whenever an image is cropped into a different aspect ratio.**
+- **Exports:** original bytes from Figma, never resized or upscaled, saved as
+  mozjpeg **q95, 4:4:4** (the earlier q86 / 4:2:0 measured 37.8 dB PSNR against
+  the PNG, this 44–45 dB; ~420 KB each instead of ~150 KB).
+- **Not the cause:** CSS (no opacity, filter, blend or overlay on either photo
+  or any ancestor — only the Kaizen card sits over the hero), colour profile
+  (originals are untagged sRGB), `object-fit`.
+- **Exact crop:** the hero `CROP` window is slightly tighter than a cover fit
+  (0.56 % zoom, top-anchored). `object-fit: cover` measured 13.4/255 off Figma's
+  render; `figmaCropStyle()` (percentages of the arch, from Figma's
+  `imageTransform`) measures 3.3. Reuse it for any other `CROP` fill that needs
+  to be exact.
+- **Still true elsewhere, not changed (out of scope):** the same `sizes`
+  mismatch exists on other pages — e.g. `training-winter.jpg` is served at
+  57 % of the width it is painted, `ind-healthcare-team.jpg` 64 %,
+  `about-philosophy.jpg` 67 %. Listed in `DESIGN-CHANGES.md`.
+
+**404, Homepage Training CTA and Careers hero (2026-11-18):**
+
+- **`src/app/not-found.tsx`** is the custom 404. It sits at the app root, so
+  the root layout wraps it in the shared Header and the Original Footer. Copy
+  lives in `content/not-found.ts`; the section is
+  `components/sections/not-found/not-found-section.tsx` (eyebrow, the page's
+  only H1, a supporting line, a "Back to Home" `Button`, on the same fine grid
+  and violet glow the Contact hero uses). **Figma has no 404 frame**, so it is
+  built from tokens, and the supporting line is `@placeholder` wording.
+  Next sets `noindex` and the 404 status itself; the title renders as
+  "Page not found — The Working Tribe".
+- **Static export:** `npm run build:static` emits `out/404.html` and
+  `out/404/index.html` (`trailingSlash`), byte-identical. A static host
+  serves `404.html` with a 404 status for any unknown URL — including the
+  on-hold `/faq/` and `/newsletters/`, which is the intended behaviour
+  while those pages do not exist. Verified against a host that mimics this.
+- **Homepage Training Programs** (`programmesSection` in `home.ts`):
+  `browse` is `null`, so "Browse all editions" is not rendered at all, and
+  `archive` now reads "View all Training Programs" → `/training-programs`
+  (live). Figma's Home frame (`111:5752`, `111:5759`) still draws both old
+  links, so this is a **deliberate divergence on client instruction**. The
+  homepage no longer links to the unbuilt `/newsletters`.
+- **Careers hero** (`careers-hero-team.jpg`, Figma hash `3e9ebdf88a`): a
+  1122 × 1402 original, plain centred `FILL` in the 460 × 600 arch — i.e.
+  `object-cover` — verified against Figma's render (MAD 1.08/255). AI-generated
+  (OpenAI/ChatGPT C2PA), so no credit exists. The old file is deleted.
 
 **Routes:** `/`, `/about`, `/why-twt`, `/careers`, `/training-programs`,
 `/industries`, `/contact`, `/services` and all four

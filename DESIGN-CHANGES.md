@@ -437,3 +437,237 @@ the two office rows as plain `Contact Option` cards with no action.
 The footer carries the same two addresses and was **not** changed: the
 instruction scoped this to the Contact page, and the footer appears on every
 route. Awaiting a decision on whether it should match.
+
+---
+
+### 2026-11-18 — Figma changes detected and synced
+
+Read live from Figma (read-only). Figma was **being edited while this sync
+ran**: the two Home images were swapped mid-session (hashes `cf18d52f99` /
+`ae673e461e` at 05:3x, then `f18ffee31e` / `66b9b4fbcb`, with the nodes
+re-created as `388:7746` / `388:7748`). The images below are those present at
+the time of export; re-check Home before relying on them.
+
+All baseline frame sizes are unchanged (Home 9363, About 6544, Industries 8615,
+Services 8999, Contact 3538, Service template 6406).
+
+| Node                                               | Change                                                                                                                                                                                                                                                                               | Implemented                                                                              |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| `46:95` Home — `388:7746`, `388:7748`              | Hero arch and brand-introduction photographs replaced (both AI-generated, OpenAI C2PA). Crops are plain `FILL`.                                                                                                                                                                      | ✅ `home-hero.jpg`, `home-intro.jpg`                                                     |
+| `54:95` About — `54:161`/`54:162`                  | `WORKING GLOBALLY` caption copy rewritten: "Delivering expertise across hospitality, manufacturing, healthcare, technology, and the public sector to drive sustainable growth and lasting transformation." Card is now 400 × 192, 15 px from the bottom (was 18); text box 353 wide. | ✅ copy verbatim; offset and wrap matched                                                |
+| `54:163` About — `OUR POSITIONING`                 | **No change found.** Eyebrow, H2, lead, body and pull quote all match their Figma styles at 1440 / 1280 / 1536 / 768 / 375; live render vs Figma: mean diff 0.78/255.                                                                                                                | — nothing to fix                                                                         |
+| `57:502` Industries — `57:594`, `57:652`, `57:710` | Hospitality, Healthcare and Conglomerates photographs replaced. Healthcare's `CROP` fill pans the photo right by 0.1485 × 1880 px.                                                                                                                                                   | ✅ three new files; Healthcare box `left −11.17%`                                        |
+| `85:923` Services — `85:1156`                      | Advisory panel photograph replaced (AI-generated). `CROP` a 0.4211, tx 0.2014.                                                                                                                                                                                                       | ✅ `services-advisory-meeting.jpg`, `object-position 34.8%`                              |
+| `90:4009` Contact — `90:4092`                      | Hero photograph replaced **and the arch window resized**: 520 × 660 at (65, −40) in the 540 × 620 stage, was 460 × 620 at x 80. `CROP` a 0.59, tx 0.2198.                                                                                                                            | ✅ `contact-hero-conversation.jpg`, `object-position 53.6%`, new window from `tablet` up |
+| `56:329` Service template — `56:543`               | Related Services Advisory card now uses the new Advisory photograph (`FILL`, centred). Global and Tribe Capital cards unchanged.                                                                                                                                                     | ✅ all four detail pages                                                                 |
+| `56:761` B2 — Pink hero                            | Advisory hero is a `CROP` of the new photograph (a 0.6331, tx 0.0897).                                                                                                                                                                                                               | ✅ `object-position 24.4%`                                                               |
+| `56:761` B2 — Orange hero                          | Global Solutions hero is a `CROP` (a 0.6331, tx 0.367) → `object-position 100%`. The build centres it (MAD 61.2 vs 1.2).                                                                                                                                                             | ⚠️ **not changed** — outside this brief; one content line                                |
+| `367:7271`, `376:7285`                             | **New** `Shared images` (11 items) and `Other images` (5 items) sections: the client's image library, named by filename, no attribution.                                                                                                                                             | — reference only                                                                         |
+| `227:10051`                                        | `Home — Desktop Copy` — a duplicate of the Home frame. Not canonical (§1).                                                                                                                                                                                                           | — ignored                                                                                |
+| Design System                                      | 299 variables, 42 text styles; `font/family/brand` = `Sofia Sans Semi Condensed`. All 42 styles match `tokens.css` exactly.                                                                                                                                                          | — verified, no change                                                                    |
+
+**Not changed on purpose:** Training, Why TWT, Careers, Training Programs and
+Tribe Capital images — their placed fills are byte-identical to what ships,
+or visually identical (mean diff < 7/255).
+
+**Credits:** none recorded. No source or photographer exists in Figma for any
+replaced image, and three carry AI provenance. `credits.ts` still does not
+exist (CLAUDE.md §6.4).
+
+---
+
+### 2026-11-18 (second sync) — 404, Homepage CTA, Careers hero, typography
+
+Read live from Figma (read-only).
+
+| Node                                            | Finding                                                                                                                                                                                                                            | Implemented                                                                                           |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| — (searched every page)                         | **No 404 / error-page frame exists.**                                                                                                                                                                                              | ✅ built from tokens; supporting line is `@placeholder`                                               |
+| `46:95` Home — `111:5752`, `111:5759`           | The Training Programs block **still draws** `Link · Browse all editions` and `Link · View the archive` (→ newsletters). Not updated for the client's instruction.                                                                  | ✅ by instruction: Browse removed; archive link → "View all Training Programs" → `/training-programs` |
+| `95:4335` Careers — `95:4415`                   | Hero arch photograph replaced: hash `8a02d87995` → `3e9ebdf88a` (1122 × 1402, AI-generated, ChatGPT C2PA). Still a plain centred `FILL` in the 460 × 600 arch at x 80 of the 540 × 600 stage.                                      | ✅ `careers-hero-team.jpg`; old file deleted                                                          |
+| Design System                                   | **No typography change.** 6,838 of 6,839 text nodes are `Sofia Sans Semi Condensed`; 0 missing fonts; the 42 text styles and `font/family/brand` are unchanged.                                                                    | — font kept (CLAUDE.md §12 has the evidence)                                                          |
+| `90:4083` Contact — `Button/Outline` "Email us" | `Show leading icon = true` (a mail icon). **The build omits it.** Pre-existing, outside this brief.                                                                                                                                | ⚠️ **not changed**                                                                                    |
+| `90:4074` Contact — H1                          | Figma wraps "Let’s talk about the change that must last." onto 3 lines in its 644 px box; the browser fits it on 2, because the string measures **643.4 px**. Glyph widths agree (Figma ink 542 / 502 px vs 549 / 507 px advance). | ⚠️ **not changed** — a sub-pixel tipping point, not a font difference                                 |
+| `249:10668` Training Programs — Winter months   | "December, January, February" wraps in 2 lines in a 134 px box in Figma; 3 lines in a 117 px box in the build.                                                                                                                     | ⚠️ **not changed** — box width                                                                        |
+
+**Typography verdict.** Line counts of 810 Figma text blocks vs the browser at
+1440: 791 identical (97.7 %). Pixel diff of real pages vs Figma renders:
+Sofia Sans Semi Condensed 0.8–1.6/255 against 3.0–13.2 for Sofia Sans
+Condensed, Sofia Sans, Barlow, Fira, IBM Plex, Roboto Condensed, Segoe UI and
+Arial. No change to fonts, tokens, sizes, weights, line heights or letter
+spacing.
+
+---
+
+### 2026-11-18 (third sync) — Let’s talk email, footer MMXXVI, image re-sync
+
+Read live from Figma (read-only). Every `imageHash` placed in Home, Why TWT,
+Services Overview, the Service template (`56:329`), `B2` (`56:761`) and the
+Tribe Capital frame was compared with the one shipping; every changed fill was
+exported byte-exact, and each crop was checked against Figma's own render of
+the node.
+
+**Text**
+
+| Node                        | Finding                                                                                                                                                                               | Implemented                                                                                                                      |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `46:95` Home — `48:458`     | The closing CTA ("Let’s talk") **still draws `info@theworkingtribe.com`**. Every other frame — footer, About, Why TWT, Contact, service pages — draws `hello@`.                       | ✅ **by client instruction:** `hello@theworkingtribe.com` in `home.ts`; the `mailto:` uses the same field. Deliberate divergence |
+| `44:229` `Footer/Desktop`   | Bottom row reads "© **MMXXVI** The Working Tribe. All rights reserved." on every page frame built from it. `Layout=Modern` (`111:8589`) and `Home 3` still read 2026 — neither ships. | ✅ `copyright()` in `site.ts` now defaults to `"MMXXVI"`; one shared footer, so every page changes                               |
+| `90:4638` FAQ — `I104:6223` | One FAQ answer still says "email info@theworkingtribe.com".                                                                                                                           | — FAQ is on hold; nothing built                                                                                                  |
+
+**Images** (all exported un-cropped; the crop is CSS)
+
+| Figma node(s)                                              | Hash change                                     | Fill → CSS                                                                                                                                   | New file                                | Pages affected                                                                             |
+| ---------------------------------------------------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------ |
+| `85:923` → `87:1494` Services hero 1280 × 400              | `1b9c9ef2e9` → `9fe45a3bc7` (1205 × 808)        | `CROP` a 1, d 0.466, ty 0.1732 → `object-position 50% 32.4%` (MAD 9.0 vs 63.4 centred)                                                       | `services-hero-presentation.jpg`        | `/services`                                                                                |
+| `85:1077` Services Training 560 × 700                      | `325dc6cb3d` → `787927efd3` (803 × 805)         | `FILL` → centred (MAD 1.47)                                                                                                                  | `training-workshop.jpg`                 | `/services`; also the "Training" related card on the Advisory, Global, Tribe Capital pages |
+| `108:5091` → `108:5174` Why TWT hero arch 440 × 580        | previous photograph → `787927efd3`              | `FILL` → centred (MAD 3.98 inside the arch mask)                                                                                             | `training-workshop.jpg` (shared)        | `/why-twt`                                                                                 |
+| `85:1156` Services Advisory panel 520 × 695                | `e72c59d95d` → `1368bdf91c` (1038 × 800)        | `CROP` a 0.5766, tx 0.2115 → `50% 50%` (MAD 1.06)                                                                                            | `services-advisory-laptop.jpg`          | `/services`                                                                                |
+| `56:761` B2 Pink hero 360 × 320                            | `e72c59d95d` → `1368bdf91c`                     | `CROP` a 0.8671, tx 0.0326 → `24.5% 50%` (MAD 5.4 vs 47.6 centred)                                                                           | `services-advisory-laptop.jpg` (shared) | `/services/advisory-management-consulting`                                                 |
+| `56:329` → `01 · Service hero` image 720 × 640             | `c850f938e2` → `7d31a8b80e` (1207 × 806)        | `CROP` a 0.7512, tx 0.0825 → `33.2% 50%` (MAD 1.57 vs 43.6 centred)                                                                          | `service-training-hero-seminar.jpg`     | `/services/training-capacity-building`                                                     |
+| `56:543` Related card — Advisory 405 × 250                 | `e72c59d95d` → `122c501971` (1185 × 788)        | `FILL` → centred (MAD 4.7)                                                                                                                   | `service-card-advisory.jpg`             | Related services on Training, Global, Tribe Capital                                        |
+| `56:553` Related card — Global; `B2` Orange hero 360 × 320 | previous photograph → `4500ddf357` (1442 × 803) | both `FILL` → centred (MAD 3.3 / 6.2). The hero used to be a right-hand `CROP`, so the "Global hero crop" note from the first sync is closed | `service-global-strategy.jpg`           | `/services/global-solutions` hero; Related services on Training, Advisory, Tribe Capital   |
+
+Seven superseded files were deleted: `services-hero.jpg`, `services-training.jpg`,
+`why-hero-arch.jpg`, `services-advisory-meeting.jpg`, `service-training-hero.jpg`,
+`service-card-global.jpg`, `service-card-global.png`. New file names differ
+from the old ones so a CDN or browser cannot serve a stale copy.
+
+**Checked and unchanged**
+
+- **Home `46:95`** — hero `f18ffee31e` and intro `66b9b4fbcb` are exactly the
+  two files that already ship (render diff 1.35 / 1.36 out of 255). The intro
+  also carries a **hidden** second fill (`787927efd3`, `CROP`) under the visible
+  one; it does not render and was ignored.
+- **Why TWT** circle `e9d87ae73e` and anchors `732d6ababb`, `96044c1390`,
+  `3fc8bfab7a` — pixel-identical to the shipped files (MAD 0.0).
+- **Service template** collage `548a62339b` / `1c308bd5ba` and Tribe Capital
+  card `9345d93bde`, **Tribe Capital hero** `e67d7a9273` (MAD 1.15) — same
+  hashes as before. `104:5829` (Tribe Capital enquiry) holds no image fills.
+
+**Noticed, not acted on** (outside this brief)
+
+- **`54:95` About frame grew 6544 → 6600 (+56).** `02 · Positioning` is now
+  678 px tall (was 622, which is also what the build renders). Copy column
+  438 px: lead 128, two paragraphs 96 each, pull quote 42. Not synced.
+- `227:10051` `Home — Desktop Copy` still exists and carries different Home
+  photographs (`c1bf528a3d`, `4932a9571d`). Not canonical (§1); not used.
+- `787927efd3` is only **803 × 805 px**. It is drawn at 560 × 700 on the
+  Services Overview and 440 × 580 on Why TWT, so it will look soft on
+  high-density screens. A larger original would fix it.
+
+**Credits:** none recorded. None of the six new files carries C2PA or any
+attribution, and Figma names no photographer, so `credits.ts` still does not
+exist (CLAUDE.md §6.4).
+
+---
+
+### 2026-11-18 (fourth sync) — Home images, About Positioning, Tribe Capital breadcrumb, Contact map links
+
+Read live from Figma (read-only).
+
+| Node                                      | Change                                                                                                                                                                                                                                                                                                                                                                                                                                                 | Implemented                                                                                                                                                     |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `46:95` Home — `417:10991` hero arch      | The Home frame's image nodes were **re-created**. Hero is now hash `c1bf528a3d` (1442 × 802; was `f18ffee31e`, 1122 × 1402) — a `CROP` of a 520 × 680 window: a 0.4253, tx 0.3056.                                                                                                                                                                                                                                                                     | ✅ `home-hero-colleagues.jpg`, `object-position 53.2% 50%` (MAD 2.58 vs 39.0 centred); `home-hero.jpg` deleted                                                  |
+| `46:95` Home — `417:10993` intro          | Intro is now hash `4932a9571d` (1206 × 803; was `66b9b4fbcb`, 1122 × 1402) — a `CROP`: a 0.541, tx 0.1962. A hidden second fill (`787927efd3`) still sits under it and does not render.                                                                                                                                                                                                                                                                | ✅ `home-intro-digital-table.jpg`, `object-position 42.8% 50%` (MAD 2.66 vs 31.8 centred); `home-intro.jpg` deleted                                             |
+| `54:163` About — `02 · Positioning`       | **Redesigned: 622 → 678 px.** `Copy` column (`54:174`, 744 wide) is a 20 px-gap stack: lead 128, paragraph 96, paragraph 96, pull quote 58 (16 px top padding). The lead **and both paragraphs** are `Desktop/Body/Large` (Light 20/32) in `text/heading` `#070052`; the paragraphs were Body/Regular in `text/body` with a 28 px gap. Label column (440), 96 px column gap, eyebrow, 44/52 title, flow-lines background and pull quote are unchanged. | ✅ `positioning.tsx` only (gap `gap-5`, paragraphs `type.bodyLarge` + `text-text-heading`). Section 678 px; every block at Figma's y; render diff 1.39/255      |
+| `56:761` B2 — `Variant / Tribe Capital`   | `Service Hero` → `Breadcrumb` is filled with `segment/yellow/on-solid` = navy `#070052` (rgb 7, 0, 82), 13 px, ls 1, at 100 % opacity. The build fell back to the generic `text/muted` grey.                                                                                                                                                                                                                                                           | ✅ colour only: optional `Breadcrumb` `className`, hero passes `tone.onSolid` on a light surface (Tribe Capital only). Layout, type and links unchanged         |
+| `56:761` B2 / `56:380` — the other heroes | The same rule draws the Training, Advisory and Global breadcrumbs in **100 % white** (`segment/{violet,pink,orange}/on-solid`). The build uses `text/inverse-muted` (white 72 %).                                                                                                                                                                                                                                                                      | ⚠️ **not changed** — outside the brief; one prop at each hero would fix it                                                                                      |
+| `90:4009` Contact — office cards          | Client supplied the exact Google Maps links: African Region → `https://maps.app.goo.gl/7hQzpkS2upNyhho88` (Accra Office), Asia Region → `https://maps.app.goo.gl/rGe85iydRNUBq2jD9` (China Office). Resolved: the first is _Airport Residential Area, Accra_ (5.604, −0.187); the second _Zhongjun Plaza, Min Hang Qu, Shanghai_ (31.211, 121.313).                                                                                                    | ✅ `Office.mapUrl` in `site.ts`, used verbatim; cards open in a new tab (`rel="noopener noreferrer"`); `lib/maps.ts` deleted; card design and content unchanged |
+
+**Note:** the two Home photographs are the same two that `Home — Desktop Copy`
+(`227:10051`) already carried when the third sync noted it — the canonical Home
+now uses them. Neither file has C2PA or attribution metadata, and Figma names no
+photographer, so no credit exists (CLAUDE.md §6.4).
+
+**Files changed:** `src/content/{home,site}.ts`,
+`src/components/sections/home/{hero,brand-intro}.tsx`,
+`src/components/sections/about/positioning.tsx`,
+`src/components/sections/breadcrumb.tsx`,
+`src/components/sections/services/service-detail-sections.tsx`,
+`src/components/sections/contact/contact-sections.tsx`; added
+`public/images/home-hero-colleagues.jpg` and `home-intro-digital-table.jpg`;
+deleted `public/images/home-hero.jpg`, `home-intro.jpg` and `src/lib/maps.ts`.
+
+**Reported, not changed:** both new Home photographs are low-resolution for
+their slots (hero: 802 px source height for a 680 px slot, i.e. 1.18×; intro:
+803 px for 640 px, 1.25×), so they will look soft on high-density screens.
+_(Superseded by the fifth sync below, which replaces both again.)_
+
+---
+
+### 2026-11-18 (fifth sync) — Home photographs: higher-resolution versions and image quality
+
+Read live from Figma (read-only). The two Home image nodes (`417:10991`,
+`417:10993`) were updated in place; nothing else on Home carries a photograph
+(the programme covers and the closing CTA use SVG decor, not image fills).
+
+**Replaced assets**
+
+| Node (section)                                   | Before (hash, px)                                         | Now (hash, exported px)                                             | New file (stored)                                                               | Fill → CSS                                                                                                                             |
+| ------------------------------------------------ | --------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `417:10991` Hero arch 520 × 680 (`01 · Hero`)    | `c1bf528a3d`, 1442 × 802 (`home-hero-colleagues.jpg`)     | **`4c6066000c`, 1536 × 864** PNG (an unchanged hidden fill remains) | `home-hero-meeting-room.jpg`, 1536 × 864, q95 4:4:4, 430 KB (was 146 KB)        | `CROP` a 0.4277, d 0.9944, tx 0.3051, ty 0.0004 → exact window via `figmaCropStyle()` (MAD 3.3 vs Figma; `object-fit: cover` was 13.4) |
+| `417:10993` Intro 520 × 640 (`02 · Brand intro`) | `4932a9571d`, 1206 × 803 (`home-intro-digital-table.jpg`) | **`927f76f4bc`, 1536 × 1024** PNG                                   | `home-intro-digital-workspace.jpg`, 1536 × 1024, q95 4:4:4, 414 KB (was 103 KB) | **now a plain `FILL`** (was a `CROP`) → centred `object-cover` (MAD 1.4 vs Figma)                                                      |
+
+Both exports are Figma's own bytes, sRGB, with no ICC profile; **never resized
+or upscaled**. Both carry OpenAI `gpt-image` C2PA credentials (AI-generated), so
+there is no photographer credit. `home-hero-colleagues.jpg` and
+`home-intro-digital-table.jpg` were deleted. Frame sizes are unchanged (hero
+864, intro 1084).
+
+**What made the images look dull and low-quality** (measured in Chrome against
+the ideal Lanczos downscale of the full-resolution original; detail =
+sharpness relative to the ideal, 1.0 = identical):
+
+| Cause                                                                                                                                                                                                                                                                                                                      | Evidence                                                                                                                                                                                | Fixed                                                                                    |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| **1. `sizes` described the slot, not the photo (the main cause).** Landscape photos are cropped into portrait slots, so they are painted 2.3× (hero) and 1.85× (intro) wider than the 520 px slot. `sizes="520px"` made the optimizer serve a **640 px** file that the browser then stretched about **1.9×** (2.2× at 2×). | At 1440 / 1×: hero served `w=640` (640 × 360), **detail 0.35**; intro `w=640`, detail 0.52. At 2×: `w=1080`, detail 0.53 / 0.59. The browser was painting ~1216 px from 640 px of data. | ✅ `sizes` now states the painted width; hero is served 1536 × 864, intro 1080–1536 px   |
+| **2. WebP quality 75** on large, smooth, AI-generated gradients (sky, walls), which band and lose texture.                                                                                                                                                                                                                 | `q=75` in every served URL.                                                                                                                                                             | ✅ `quality={90}` + `images.qualities: [75, 90]` in `next.config.ts` (Next 16 allowlist) |
+| **3. The stored JPEGs were over-compressed:** q86 with 4:2:0 chroma subsampling.                                                                                                                                                                                                                                           | PSNR against the PNG original: **37.8 dB** (hero) / 39.5 dB (intro); q95 4:4:4 gives 44.0 / 45.2 dB.                                                                                    | ✅ q95 4:4:4 mozjpeg                                                                     |
+| **4. Crop was ~2–4 px off** (hero only): Figma's window zooms a further 0.56 % and is top-anchored; cover cannot express that.                                                                                                                                                                                             | MAD vs Figma's render 13.4 (cover) → **3.3** (exact window).                                                                                                                            | ✅ `lib/figma-crop.ts`                                                                   |
+| _Not causes:_ CSS opacity / filter / blend / overlay (none on either photo or any ancestor; only the Kaizen card sits over the hero), colour profile (originals are untagged sRGB), `object-fit`, Next `unoptimized`.                                                                                                      | Computed-style walk up the DOM + `elementFromPoint` grid: 30/36 and 36/36 sample points are the photo itself; the rest is the card.                                                     | —                                                                                        |
+
+**After** (production build via `next start`, dev server and static export all
+agree): 1440 / 1× — hero served **1536 × 864, q90, detail 0.82** (static
+original file 0.83), intro **1080 × 720, detail 0.78** (original file 0.95); at
+2× both are served at the full 1536 px (the source's real resolution — never
+upscaled on the server). Against Figma's own node renders: hero 3.3 / 3.6
+(1× / 2×), intro 1.4 / 1.2 out of 255; against Figma's section frames at 1440
+(hero photo half 2.0, intro 1.4–1.7). At 768 and 375 the same checks hold
+(sub-pixel placement aside). No broken images, no layout shift (CLS < 0.01),
+no horizontal overflow.
+
+**Known, unchanged:** the hero headline is 64/72 on desktop by client
+instruction while Figma draws 72/80, which is why a whole-section comparison of
+the hero reads ~10/255 — the photograph half is 2.0.
+
+**Files changed:** `src/content/home.ts`,
+`src/components/sections/home/{hero,brand-intro}.tsx`, `next.config.ts`; added
+`src/lib/figma-crop.ts`, `public/images/home-hero-meeting-room.jpg` and
+`home-intro-digital-workspace.jpg`; deleted `public/images/home-hero-colleagues.jpg`
+and `home-intro-digital-table.jpg`.
+
+**Same problem on other pages — reported, NOT changed (Home only, per the
+brief).** Scan of every route at 1440 / 1×: images served at less than 90 % of
+the width they are painted at. Fix is the same: correct `sizes` (and, where
+smooth gradients band, `quality`).
+
+| Page                                       | Image                               | Painted |  Served | Served / painted |
+| ------------------------------------------ | ----------------------------------- | ------: | ------: | ---------------: |
+| `/training-programs`                       | `training-winter.jpg`               | 1120 px |  640 px |             0.57 |
+| `/industries`                              | `training-summer.jpg`               |  604 px |  384 px |             0.64 |
+| `/industries`                              | `ind-healthcare-team.jpg`           | 1880 px | 1206 px |             0.64 |
+| `/services/global-solutions`               | `service-global-strategy.jpg`       | 1149 px |  750 px |             0.65 |
+| `/about`                                   | `about-philosophy.jpg`              |  959 px |  640 px |             0.67 |
+| `/services`                                | `services-advisory-laptop.jpg`      |  906 px |  640 px |             0.71 |
+| `/contact`                                 | `contact-hero-conversation.jpg`     |  881 px |  640 px |             0.73 |
+| `/training-programs`                       | `training-summer.jpg`, `-autumn`    |  853 px |  640 px |             0.75 |
+| `/services/tribe-capital`                  | `service-capital-hero.jpg`          |  960 px |  750 px |             0.78 |
+| `/services/training-capacity-building`     | `service-training-hero-seminar.jpg` |  958 px |  750 px |             0.78 |
+| `/industries`                              | `ind-public.png`                    |  800 px |  640 px |             0.80 |
+| `/services/advisory-management-consulting` | `services-advisory-laptop.jpg`      |  864 px |  750 px |             0.87 |
+| `/training-programs`                       | `training-spring.jpg`               |  720 px |  640 px |             0.89 |
+
+The static export is unaffected (it serves the original files); this concerns
+`npm run dev`, `npm run build` + `npm start`, or any host that runs the Next.js
+image optimizer.
